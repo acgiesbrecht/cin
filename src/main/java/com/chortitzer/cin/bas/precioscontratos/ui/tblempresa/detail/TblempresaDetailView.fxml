@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<AnchorPane maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.detail.TblempresaDetailView">
+    <children>
+        <GridPane layoutX="0.0" layoutY="0.0" hgap="10" vgap="10">
+            <children>
+                <Label fx:id="lblId" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="100"/>
+                <TextField fx:id="txtId" text="" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <Label text="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtNombre" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

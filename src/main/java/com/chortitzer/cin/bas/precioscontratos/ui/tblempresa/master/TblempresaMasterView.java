@@ -1,4 +1,4 @@
-package com.chortitzer.cin.bas.precioscontratos.ui.maincontainer;
+package com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.master;
 
 import com.chortitzer.cin.bas.precioscontratos.model.Tblempresa;
 import de.saxsys.mvvmfx.FxmlView;
@@ -13,13 +13,13 @@ import org.controlsfx.control.table.TableFilter;
  * look on the FXML file to see, how to include different views into a
  * MasterView.
  */
-public class MainContainerView implements FxmlView<MainContainerViewModel> {
+public class TblempresaMasterView implements FxmlView<TblempresaMasterViewModel> {
 
 	@FXML
 	private TableView<Tblempresa> empresaTable;
 
 	@InjectViewModel
-	private MainContainerViewModel viewModel;
+	private TblempresaMasterViewModel viewModel;
 
 	public void initialize() {
         //empresaTable.setItems(viewModel.getEmpresas());
@@ -36,7 +36,7 @@ public class MainContainerView implements FxmlView<MainContainerViewModel> {
 
 		viewModel.selectedTableRowProperty().bind(empresaTable.getSelectionModel().selectedItemProperty());
 
-		// When the selectedTableRowProperty changes in the viewModel we need to update the table
+		// When the selectedTableRowProperty changes in the viewModel we need to update the master
 		viewModel.setOnSelect(vm -> empresaTable.getSelectionModel().select(vm));
 	}
 

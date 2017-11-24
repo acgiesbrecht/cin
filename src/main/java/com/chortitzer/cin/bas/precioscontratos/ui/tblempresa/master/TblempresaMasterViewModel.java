@@ -1,7 +1,9 @@
-package com.chortitzer.cin.bas.precioscontratos.ui.maincontainer;
+package com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.master;
 
 import com.chortitzer.cin.bas.precioscontratos.model.Tblempresa;
 import com.chortitzer.cin.bas.precioscontratos.model.dao.TblempresaDao;
+import com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.scopes.TblempresaMasterDetailScope;
+import de.saxsys.mvvmfx.InjectScope;
 import de.saxsys.mvvmfx.ViewModel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
@@ -13,19 +15,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class MainContainerViewModel implements ViewModel {
+public class TblempresaMasterViewModel implements ViewModel {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MainContainerViewModel.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TblempresaMasterViewModel.class);
 
     private final ObservableList<Tblempresa> empresas = FXCollections.observableArrayList();
     private final ReadOnlyObjectWrapper<Tblempresa> selectedEmpresa = new ReadOnlyObjectWrapper<>();
     private final ObjectProperty<Tblempresa> selectedTableRow = new SimpleObjectProperty<>();
     private Consumer<Tblempresa> onSelect;
+
+    @InjectScope
+    TblempresaMasterDetailScope mdScope;
 
     @Inject
     TblempresaDao tblempresaDao;
@@ -33,7 +39,7 @@ public class MainContainerViewModel implements ViewModel {
     public void initialize() {
         updateEmpresaList();
 
-        //mdScope.selectedContactProperty().bind(selectedContact);
+        mdScope.selectedEmpresaProperty().bindBidirectional(selectedEmpresa);
 
         selectedEmpresa.bind(Bindings.createObjectBinding(() -> {
             if (selectedTableRow.get() == null) {
@@ -42,19 +48,18 @@ public class MainContainerViewModel implements ViewModel {
                 return tblempresaDao.findById(selectedTableRow.get().getId()).orElse(null);
             }
         }, selectedTableRow));
+
     }
 
     private void updateEmpresaList() {
         LOG.debug("update empresa list");
-
-        // when there is a selected row, persist the id of this row, otherwise use null
+        
         final Integer selectedEmpresaId = (selectedTableRow.get() == null) ? null : selectedTableRow.get().getId();
 
         Set<Tblempresa> allEmpresas = new HashSet<>(tblempresaDao.getAll());
 
         empresas.clear();
         empresas.addAll(allEmpresas);
-        //allEmpresas.forEach(empresa -> empresas.add(new Tblempresa(empresa)));
 
         if (selectedEmpresaId != null) {
             Optional<Tblempresa> selectedRow = empresas.stream()
@@ -63,6 +68,10 @@ public class MainContainerViewModel implements ViewModel {
 
             Optional.of(onSelect).ifPresent(consumer -> consumer.accept(selectedRow.orElse(null)));
         }
+    }
+
+    public void refresh() {
+        mdScope.publish(mdScope.UPDATE);
     }
 
     public ObservableList<Tblempresa> getEmpresas() {

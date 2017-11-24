@@ -1,7 +1,9 @@
 package com.chortitzer.cin.bas.precioscontratos;
 
-import com.chortitzer.cin.bas.precioscontratos.ui.maincontainer.MainContainerView;
-import com.chortitzer.cin.bas.precioscontratos.ui.maincontainer.MainContainerViewModel;
+import com.chortitzer.cin.bas.precioscontratos.ui.main.MainView;
+import com.chortitzer.cin.bas.precioscontratos.ui.main.MainViewModel;
+import com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.master.TblempresaMasterView;
+import com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.master.TblempresaMasterViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
 import de.saxsys.mvvmfx.guice.MvvmfxGuiceApplication;
@@ -27,8 +29,8 @@ public class App extends MvvmfxGuiceApplication {
         //Injector injector = Guice.createInjector(new JpaPersistModule("PU"));
         //injector.getInstance(JPAInitializer.class);
 
-        final ViewTuple<MainContainerView, MainContainerViewModel> tuple
-                = FluentViewLoader.fxmlView(MainContainerView.class).load();
+        final ViewTuple<MainView, MainViewModel> tuple
+                = FluentViewLoader.fxmlView(MainView.class).load();
 
         //Injector injector = Guice.createInjector(new JpaPersistModule("PU"));
         //tblempresaDao = injector.getInstance(TblempresaDao.class);

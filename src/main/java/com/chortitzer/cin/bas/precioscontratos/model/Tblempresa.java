@@ -5,6 +5,11 @@
  */
 package com.chortitzer.cin.bas.precioscontratos.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -17,15 +22,7 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "tblempresa")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Tblempresa.findAll", query = "SELECT t FROM Tblempresa t"),
-    @NamedQuery(name = "Tblempresa.findById", query = "SELECT t FROM Tblempresa t WHERE t.id = :id"),
-    @NamedQuery(name = "Tblempresa.findByNombre", query = "SELECT t FROM Tblempresa t WHERE t.nombre = :nombre"),
-    @NamedQuery(name = "Tblempresa.findByDireccion", query = "SELECT t FROM Tblempresa t WHERE t.direccion = :direccion"),
-    @NamedQuery(name = "Tblempresa.findByTelefono", query = "SELECT t FROM Tblempresa t WHERE t.telefono = :telefono"),
-    @NamedQuery(name = "Tblempresa.findByCuentacorriente", query = "SELECT t FROM Tblempresa t WHERE t.cuentacorriente = :cuentacorriente"),
-    @NamedQuery(name = "Tblempresa.findByRuc", query = "SELECT t FROM Tblempresa t WHERE t.ruc = :ruc")})
+@Access(AccessType.FIELD)
 public class Tblempresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,18 +30,24 @@ public class Tblempresa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
-    @Column(name = "direccion")
-    private String direccion;
-    @Column(name = "telefono")
-    private String telefono;
-    @Column(name = "cuentacorriente")
-    private String cuentacorriente;
-    @Column(name = "ruc")
-    private String ruc;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmpresa")
-    private Collection<TblBasContratos> tblBasContratosCollection;
+
+    @Transient
+    private StringProperty nombre = new SimpleStringProperty();
+
+    @Transient
+    private StringProperty direccion= new SimpleStringProperty();
+
+    @Transient
+    private StringProperty telefono= new SimpleStringProperty();
+
+    @Transient
+    private StringProperty cuentacorriente= new SimpleStringProperty();
+
+    @Transient
+    private StringProperty ruc= new SimpleStringProperty();
+
+    @Transient
+    private ObjectProperty<Collection<TblBasContratos>> tblBasContratosCollection = new SimpleObjectProperty<>();
 
     public Tblempresa() {
     }
@@ -53,10 +56,10 @@ public class Tblempresa implements Serializable {
         this.id = id;
     }
 
-    public Tblempresa(Integer id, String nombre) {
+    /*public Tblempresa(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-    }
+    }*/
 
     public Integer getId() {
         return id;
@@ -66,54 +69,78 @@ public class Tblempresa implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "nombre", nullable = false)
+    @Access(AccessType.PROPERTY)
     public String getNombre() {
-        return nombre;
+        return this.nombre.get();
     }
+
+    public final StringProperty nombreProperty(){return this.nombre;}
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre.set(nombre);
     }
 
+    @Access(AccessType.PROPERTY)
+    @Column(name = "direccion")
     public String getDireccion() {
-        return direccion;
+        return this.direccion.get();
     }
 
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        this.direccion.set(direccion);
     }
 
+    public final StringProperty direccionProperty(){return this.direccion;}
+
+    @Access(AccessType.PROPERTY)
+    @Column(name = "telefono")
     public String getTelefono() {
-        return telefono;
+        return this.telefono.get();
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        this.telefono.set(telefono);
     }
 
+    public final StringProperty telefonoProperty(){return this.telefono;}
+
+    @Access(AccessType.PROPERTY)
+    @Column(name = "cuentacorriente")
     public String getCuentacorriente() {
-        return cuentacorriente;
+        return this.cuentacorriente.get();
     }
 
     public void setCuentacorriente(String cuentacorriente) {
-        this.cuentacorriente = cuentacorriente;
+        this.cuentacorriente.set(cuentacorriente);
     }
 
+    public final StringProperty cuentacorrienteProperty(){return this.cuentacorriente;}
+
+    @Access(AccessType.PROPERTY)
+    @Column(name = "ruc")
     public String getRuc() {
-        return ruc;
+        return this.ruc.get();
     }
 
     public void setRuc(String ruc) {
-        this.ruc = ruc;
+        this.ruc.set(ruc);
     }
 
+    public final StringProperty rucProperty(){return this.ruc;}
+
     @XmlTransient
+    @Access(AccessType.PROPERTY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmpresa")
     public Collection<TblBasContratos> getTblBasContratosCollection() {
-        return tblBasContratosCollection;
+        return this.tblBasContratosCollection.get();
     }
 
     public void setTblBasContratosCollection(Collection<TblBasContratos> tblBasContratosCollection) {
-        this.tblBasContratosCollection = tblBasContratosCollection;
+        this.tblBasContratosCollection.set(tblBasContratosCollection);
     }
+
+    public final ObjectProperty<Collection<TblBasContratos>> tblBasContratosCollectionProperty(){return this.tblBasContratosCollection;}
 
     @Override
     public int hashCode() {
@@ -137,7 +164,7 @@ public class Tblempresa implements Serializable {
 
     @Override
     public String toString() {
-        return nombre;
+        return this.nombre.get();
     }
 
 }
