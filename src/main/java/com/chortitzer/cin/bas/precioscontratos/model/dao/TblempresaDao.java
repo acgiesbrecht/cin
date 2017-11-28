@@ -26,4 +26,9 @@ public class TblempresaDao extends AbstractDao<Tblempresa>{
         return list.stream().filter(empresa -> empresa.getId().equals(id)).findFirst();
     }
 
+    @Transactional
+    public void persist(Tblempresa empresa){
+        getEntityManager().persist(empresa);
+    }
+
 }

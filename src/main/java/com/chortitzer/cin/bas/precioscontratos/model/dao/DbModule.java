@@ -1,8 +1,6 @@
 package com.chortitzer.cin.bas.precioscontratos.model.dao;
 
-import com.chortitzer.cin.bas.precioscontratos.JPAInitializer;
 import com.google.inject.AbstractModule;
-import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class DbModule extends AbstractModule {
 

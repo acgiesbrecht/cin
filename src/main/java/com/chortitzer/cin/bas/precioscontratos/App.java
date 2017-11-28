@@ -2,11 +2,9 @@ package com.chortitzer.cin.bas.precioscontratos;
 
 import com.chortitzer.cin.bas.precioscontratos.ui.main.MainView;
 import com.chortitzer.cin.bas.precioscontratos.ui.main.MainViewModel;
-import com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.master.TblempresaMasterView;
-import com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.master.TblempresaMasterViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
-import de.saxsys.mvvmfx.guice.MvvmfxGuiceApplication;
+import de.saxsys.mvvmfx.cdi.MvvmfxCdiApplication;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +14,7 @@ import javafx.stage.Stage;
  *
  * @author sialcasa
  */
-public class App extends MvvmfxGuiceApplication {
+public class App extends MvvmfxCdiApplication {
 
     public static void main(final String[] args) {
         launch(args);

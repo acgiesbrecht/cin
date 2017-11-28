@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
-<VBox prefHeight="800.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.chortitzer.cin.bas.precioscontratos.ui.tblempresa.main.TblempresaMainView">
+<VBox prefHeight="500.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.chortitzer.cin.bas.precioscontratos.ui.main.MainView">
     <children>
         <fx:include source="../menu/MenuView.fxml"/>
         <AnchorPane>

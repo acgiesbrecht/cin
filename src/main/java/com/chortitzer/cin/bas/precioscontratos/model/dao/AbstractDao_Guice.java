@@ -1,7 +1,10 @@
 package com.chortitzer.cin.bas.precioscontratos.model.dao;
 
 import com.chortitzer.cin.bas.precioscontratos.JPAInitializer;
-import com.google.inject.*;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
@@ -12,15 +15,24 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import java.util.List;
 
-public abstract class AbstractDao<T> {
+public abstract class AbstractDao_Guice<T> {
     protected Class<T> entityClass;
 
-    @Inject
-    @PgSQLDatabase
+    //@Inject
+    //private Provider<EntityManager> em;
     private EntityManager em;
 
+    @Inject
+    public AbstractDao_Guice(Class<T> entityClass) {
+        Injector injector = Guice.createInjector(new AbstractModule() {
+            @Override
+            protected void configure() {
+                install(new JpaPersistModule("PU"));
+                bind(JPAInitializer.class).asEagerSingleton();
+            }
+        });
 
-    public AbstractDao(Class<T> entityClass) {
+        this.em = injector.getInstance(EntityManager.class);
         this.entityClass = entityClass;
     }
 
