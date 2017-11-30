@@ -4,6 +4,7 @@ import com.chortitzer.cin.bas.precioscontratos.model.Tblempresa;
 import com.chortitzer.cin.bas.precioscontratos.utils.Dialog;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -22,15 +23,17 @@ public class TblempresaMainView implements FxmlView<TblempresaMainViewModel> {
 
     @FXML
     private TextField txtNombre;
-
     @FXML
-    private Button btnSave;
+    private TextField txtRUC;
+    @FXML
+    private TextField txtCtaCte;
+
 
     @InjectViewModel
     private TblempresaMainViewModel viewModel;
 
     public void initialize() {
-        //empresaTable.setItems(viewModel.getEmpresas());
+        empresaTable.setItems(viewModel.getEmpresas());
         TableFilter<Tblempresa> tableFilter = TableFilter.forTableView(empresaTable).apply();
         //TableFilter tableFilter = new TableFilter(empresaTable);
         tableFilter.setSearchStrategy((input, target) -> {
@@ -40,7 +43,13 @@ public class TblempresaMainView implements FxmlView<TblempresaMainViewModel> {
                 return false;
             }
         });
-        tableFilter.getBackingList().setAll(viewModel.getEmpresas());
+        /*viewModel.getEmpresas().addListener(new ListChangeListener() {
+                                                @Override
+                                                public void onChanged(ListChangeListener.Change change) {
+                                                    tableFilter.getBackingList().setAll(viewModel.getEmpresas());
+                                                }
+                                            }
+        );*/
 
         viewModel.selectedEmpresaProperty().bind(empresaTable.getSelectionModel().selectedItemProperty());
 
@@ -51,11 +60,29 @@ public class TblempresaMainView implements FxmlView<TblempresaMainViewModel> {
 
         empresaTable.getSelectionModel().selectedItemProperty().addListener((observableValue, o, n) -> {
             txtNombre.textProperty().bindBidirectional(viewModel.nombreProperty());
+            txtRUC.textProperty().bindBidirectional(viewModel.rucProperty());
+            txtCtaCte.textProperty().bindBidirectional(viewModel.ctacteProperty());
         });
     }
 
     @FXML
     void save() {
         viewModel.save();
+    }
+
+    @FXML
+    void delete() {
+        viewModel.delete();
+    }
+
+    @FXML
+    void reset() {
+        viewModel.reset();
+    }
+
+    @FXML
+    void add() {
+        viewModel.add();
+        txtNombre.requestFocus();
     }
 }

@@ -1,15 +1,13 @@
 package com.chortitzer.cin.bas.precioscontratos.model.dao;
 
-import com.chortitzer.cin.bas.precioscontratos.JPAInitializer;
-import com.google.inject.*;
-import com.google.inject.persist.Transactional;
-import com.google.inject.persist.jpa.JpaPersistModule;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.PersistenceException;
+import javax.persistence.RollbackException;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
+import javax.transaction.Transactional;
 import java.util.List;
 
 public abstract class AbstractDao<T> {
@@ -37,27 +35,23 @@ public abstract class AbstractDao<T> {
         return getEntityManager().getMetamodel().entity(entityClass);
     }
 
-    @Transactional
-    public void create(T entity) {
+
+    public void persist(T entity) {
+        beginTransaction();
         getEntityManager().persist(entity);
+        commitTransaction();
     }
 
-    @Transactional
-    public void update(T entity) {
+    public void merge(T entity) {
+        beginTransaction();
         getEntityManager().merge(entity);
+        commitTransaction();
     }
 
-    @Transactional
-    public void remove(Long entityId) {
-        T entity = find(entityId);
-
-        if (entity != null)
-            remove(entity);
-    }
-
-    @Transactional
     public void remove(T entity) {
+    beginTransaction();
         getEntityManager().remove(getEntityManager().merge(entity));
+        commitTransaction();
     }
 
     @Transactional
@@ -70,32 +64,36 @@ public abstract class AbstractDao<T> {
         CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder()
                 .createQuery(entityClass);
         cq.select(cq.from(entityClass));
-
         return getEntityManager().createQuery(cq).getResultList();
     }
 
     @Transactional
-    public List<T> findRange(int[] range) {
-        CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder()
-                .createQuery(entityClass);
-        cq.select(cq.from(entityClass));
-
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0]);
-        q.setFirstResult(range[0]);
-
-        return q.getResultList();
+    public List<T> getListFromQuery(String jpqlQuery){
+        return  (List<T>)getEntityManager().createQuery(jpqlQuery).getResultList();
     }
 
-    @Transactional
-    public int count() {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-        Root<T> root = cq.from(entityClass);
-        cq.select(cb.count(root));
-        Long count = getEntityManager().createQuery(cq).getSingleResult();
+    public void beginTransaction() {
+        try {
+            getEntityManager().getTransaction().begin();
+        } catch (IllegalStateException e) {
+            rollBackTransaction();
+        }
+    }
 
-        return count.intValue();
+    public void commitTransaction() {
+        try {
+            getEntityManager().getTransaction().commit();
+        } catch (IllegalStateException | RollbackException e) {
+            rollBackTransaction();
+        }
+    }
+
+    private void rollBackTransaction() {
+        try {
+            getEntityManager().getTransaction().rollback();
+        } catch (IllegalStateException | PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
 }

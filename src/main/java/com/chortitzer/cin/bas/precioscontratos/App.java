@@ -5,9 +5,12 @@ import com.chortitzer.cin.bas.precioscontratos.ui.main.MainViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
 import de.saxsys.mvvmfx.cdi.MvvmfxCdiApplication;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Entry point of the application.
@@ -37,6 +40,16 @@ public class App extends MvvmfxCdiApplication {
         final Parent view = tuple.getView();
 
         final Scene scene = new Scene(view);
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
+
         stage.setScene(scene);
         stage.show();
     }

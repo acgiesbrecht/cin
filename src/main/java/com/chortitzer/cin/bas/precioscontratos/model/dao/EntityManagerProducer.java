@@ -16,7 +16,7 @@ public class EntityManagerProducer {
     @PgSQLDatabase
     public EntityManager createEntityManager() {
         return Persistence
-                .createEntityManagerFactory("my-persistence-unit")
+                .createEntityManagerFactory("PU")
                 .createEntityManager();
     }
 
