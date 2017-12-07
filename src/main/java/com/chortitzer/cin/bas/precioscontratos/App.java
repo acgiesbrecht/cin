@@ -1,5 +1,6 @@
 package com.chortitzer.cin.bas.precioscontratos;
 
+import com.chortitzer.cin.bas.precioscontratos.model.dao.fba.PgBalanceados;
 import com.chortitzer.cin.bas.precioscontratos.ui.main.MainView;
 import com.chortitzer.cin.bas.precioscontratos.ui.main.MainViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
@@ -9,8 +10,13 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 /**
  * Entry point of the application.
@@ -19,6 +25,9 @@ import javafx.stage.WindowEvent;
  */
 public class App extends MvvmfxCdiApplication {
 
+    private static final BorderPane root = new BorderPane();
+    public static Stage mainStage;
+
     public static void main(final String[] args) {
         launch(args);
     }
@@ -26,15 +35,8 @@ public class App extends MvvmfxCdiApplication {
     @Override
     public void startMvvmfx(final Stage stage) throws Exception {
 
-        //Injector injector = Guice.createInjector(new DbModule());
-        //Injector injector = Guice.createInjector(new JpaPersistModule("PU"));
-        //injector.getInstance(JPAInitializer.class);
-
         final ViewTuple<MainView, MainViewModel> tuple
                 = FluentViewLoader.fxmlView(MainView.class).load();
-
-        //Injector injector = Guice.createInjector(new JpaPersistModule("PU"));
-        //tblempresaDao = injector.getInstance(TblempresaDao.class);
 
         // Locate View for loaded FXML file
         final Parent view = tuple.getView();
@@ -48,8 +50,8 @@ public class App extends MvvmfxCdiApplication {
                 System.exit(0);
             }
         });
-
-
+        mainStage = stage;
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/cin-icon.png")));
         stage.setScene(scene);
         stage.show();
     }

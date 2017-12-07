@@ -2,29 +2,60 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="PU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.chortitzer.cin.bas.precioscontratos.model.TblBasPrecios</class>
-        <class>com.chortitzer.cin.bas.precioscontratos.model.TblBasContratos</class>
-        <class>com.chortitzer.cin.bas.precioscontratos.model.Tblempresa</class>
-        <class>com.chortitzer.cin.bas.precioscontratos.model.Tblproductos</class>
+        <class>com.chortitzer.cin.bas.precioscontratos.model.bascula.TblBasPrecios</class>
+        <class>com.chortitzer.cin.bas.precioscontratos.model.bascula.TblBasContratos</class>
+        <class>com.chortitzer.cin.bas.precioscontratos.model.bascula.Tblempresa</class>
+        <class>com.chortitzer.cin.bas.precioscontratos.model.bascula.Tblproductos</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.1.26:5432/industria_bas"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.password" value="123456789"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
-            <!--<property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.connection.release_mode" value="auto" />
             <property name="current_session_context_class" value="thread" />
             <property name="hibernate.connection.autoReconnect" value="true" />
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+            <property name="hibernate.generate_statistics" value="true" />
+            <property name="hibernate.jdbc.use_get_generated_keys" value="true" />
 
-             Configuring Connection Pool
-            <property name="hibernate.c3p0.min_size" value="5" />
-            <property name="hibernate.c3p0.max_size" value="20" />
-            <property name="hibernate.c3p0.timeout" value="500" />
-            <property name="hibernate.c3p0.max_statements" value="50" />
-            <property name="hibernate.c3p0.idle_test_period" value="2000" />
-            <property name="hibernate.c3p0.testConnectionOnCheckout" value="true" />
-            <property name="connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />-->
+            <!-- Configuring Connection Pool-->
+            <property name="connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
+            <property name="c3p0.acquire_increment" value="1"/>
+            <property name="c3p0.idle_test_period" value="100"/>
+            <property name="c3p0.max_size" value="5"/>
+            <property name="c3p0.max_statements" value="10" />
+            <property name="c3p0.min_size" value="3" />
+            <property name="c3p0.timeout" value="200" />
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="PU_FBA" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.chortitzer.cin.bas.precioscontratos.model.fba.Productox</class>
+        <class>com.chortitzer.cin.bas.precioscontratos.model.fba.TblProductoxConvertidores</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.1.26:3306/dbcp8100"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="123456789"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.connection.release_mode" value="auto" />
+            <property name="current_session_context_class" value="thread" />
+            <property name="hibernate.connection.autoReconnect" value="true" />
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+            <property name="hibernate.generate_statistics" value="true" />
+            <property name="hibernate.jdbc.use_get_generated_keys" value="true" />
+
+            <!-- Configuring Connection Pool-->
+            <property name="connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
+            <property name="c3p0.acquire_increment" value="1"/>
+            <property name="c3p0.idle_test_period" value="100"/>
+            <property name="c3p0.max_size" value="5"/>
+            <property name="c3p0.max_statements" value="10" />
+            <property name="c3p0.min_size" value="3" />
+            <property name="c3p0.timeout" value="200" />
         </properties>
     </persistence-unit>
 </persistence>

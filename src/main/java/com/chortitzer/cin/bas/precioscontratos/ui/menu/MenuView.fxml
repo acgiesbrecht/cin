@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.chortitzer.cin.bas.precioscontratos.ui.menu.MenuView">
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chortitzer.cin.bas.precioscontratos.ui.menu.MenuView">
 	<children>
-		<MenuBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-				 AnchorPane.topAnchor="0.0">
+		<MenuBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<menus>
-				<Menu mnemonicParsing="false" text="Menu">
+				<Menu mnemonicParsing="false" text="Bascula">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Cerrar"/>
+						<MenuItem mnemonicParsing="false" onAction="#mnuPesadas" text="Pesadas" />
+						<SeparatorMenuItem mnemonicParsing="false" />
+						<MenuItem mnemonicParsing="false" onAction="#mnuContratos" text="Contratos" />
+						<MenuItem mnemonicParsing="false" onAction="#mnuPrecios" text="Precios" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+						<MenuItem mnemonicParsing="false" onAction="#mnuEmpresas" text="Empresas" />
+						<MenuItem mnemonicParsing="false" onAction="#mnuProductos" text="Productos" />
 					</items>
 				</Menu>
+                <Menu mnemonicParsing="false" text="Fabrica de Balanceados">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#mnuConvertidores" text="Convertidores" />
+                    </items>
+                </Menu>
 			</menus>
 		</MenuBar>
 	</children>

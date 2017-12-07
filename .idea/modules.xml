@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/precios-contratos-bascula.iml" filepath="$PROJECT_DIR$/precios-contratos-bascula.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../tiwulfx/src/main/tiwulfx.iml" filepath="$PROJECT_DIR$/../../../tiwulfx/src/main/tiwulfx.iml" />
     </modules>
   </component>
 </project>
