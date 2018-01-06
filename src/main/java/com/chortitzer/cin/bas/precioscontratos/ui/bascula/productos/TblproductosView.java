@@ -31,7 +31,8 @@ public class TblproductosView extends AbstractView<Tblproductos> implements Fxml
 
     @FXML
     void add() {
-        viewModel.add();
+        addAbstract();
+        viewModel.add(new Tblproductos());
         txtDescripcion.requestFocus();
     }
 }

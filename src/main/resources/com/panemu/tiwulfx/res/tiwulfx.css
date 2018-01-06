@@ -370,7 +370,7 @@
 }
 
 .type-ahead-field {
-	-fx-skin: "com.panemu.tiwulfx.control.skin.TypeAheadFieldSkin";
+	-fx-skin: "com.chortitzer.cin.bas.precioscontratos.utils.tiwulfx.skin.TypeAheadFieldSkin";
 	-fx-background-color: transparent;
 }
 

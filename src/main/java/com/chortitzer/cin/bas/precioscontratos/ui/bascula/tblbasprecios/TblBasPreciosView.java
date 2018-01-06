@@ -3,11 +3,10 @@ package com.chortitzer.cin.bas.precioscontratos.ui.bascula.tblbasprecios;
 import com.chortitzer.cin.bas.precioscontratos.model.bascula.TblBasPrecios;
 import com.chortitzer.cin.bas.precioscontratos.model.bascula.Tblproductos;
 import com.chortitzer.cin.bas.precioscontratos.ui.AbstractView;
-import com.panemu.tiwulfx.control.TypeAheadField;
+import com.chortitzer.cin.bas.precioscontratos.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 import tornadofx.control.DateTimePicker;
@@ -42,7 +41,8 @@ public class TblBasPreciosView extends AbstractView<TblBasPrecios> implements Fx
 
     @FXML
     void add() {
-        viewModel.add();
+        addAbstract();
+        viewModel.add(new TblBasPrecios());
         dtpFecha.setDateTimeValue(LocalDateTime.now());
         thfProducto.requestFocus();
     }

@@ -32,7 +32,8 @@ public class TblempresaView extends AbstractView<Tblempresa> implements FxmlView
 
     @FXML
     void add() {
-        viewModel.add();
+        addAbstract();
+        viewModel.add(new Tblempresa());
         txtNombre.requestFocus();
     }
 }

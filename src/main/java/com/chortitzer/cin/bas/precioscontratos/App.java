@@ -43,6 +43,8 @@ public class App extends MvvmfxCdiApplication {
 
         final Scene scene = new Scene(view);
 
+        scene.getStylesheets().add(this.getClass().getResource("/css/main.css").toExternalForm());
+
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {

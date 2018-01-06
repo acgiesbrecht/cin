@@ -58,7 +58,6 @@ public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
         return getEntityManager().find(entityClass, id);
     }
 
-    @Transactional
     public List<T> findAll() {
         CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder()
                 .createQuery(entityClass);

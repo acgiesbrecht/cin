@@ -3,7 +3,7 @@ package com.chortitzer.cin.bas.precioscontratos.ui.fba.tblproductoxconvertidores
 import com.chortitzer.cin.bas.precioscontratos.model.fba.Productox;
 import com.chortitzer.cin.bas.precioscontratos.model.fba.TblProductoxConvertidores;
 import com.chortitzer.cin.bas.precioscontratos.ui.AbstractView;
-import com.panemu.tiwulfx.control.TypeAheadField;
+import com.chortitzer.cin.bas.precioscontratos.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.fxml.FXML;
@@ -37,7 +37,8 @@ public class TblProductoxConvertidoresView extends AbstractView<TblProductoxConv
 
     @FXML
     void add() {
-        viewModel.add();
+        addAbstract();
+        viewModel.add(new TblProductoxConvertidores());
         thfProducto.requestFocus();
     }
 }

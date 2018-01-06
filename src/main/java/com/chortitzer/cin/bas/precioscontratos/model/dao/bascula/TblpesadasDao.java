@@ -14,11 +14,9 @@ public class TblpesadasDao extends AbstractDaoBasculaImp<Tblpesadas> {
         super(Tblpesadas.class);
     }
 
-    @Transactional
-    public Optional<Tblempresa> findById(Integer id) {
-        List<Tblempresa> list = (List<Tblempresa>)getEntityManager().createQuery("select e from Tblpesadas e").getResultList();
-        return list.stream().filter(empresa -> empresa.getId().equals(id)).findFirst();
+    @Override
+    public List<Tblpesadas> findAll() {
+        return (List<Tblpesadas>) getEntityManager().createQuery("select e from Tblpesadas e order by e.id desc").getResultList();
     }
-
 
 }

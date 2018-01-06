@@ -95,7 +95,7 @@ public class TblProductoxConvertidores implements Serializable {
 
     @Override
     public String toString() {
-        return "com.chortitzer.fba.convertidor.domain.TblProductoxConvertidores[ idProductox=" + idProductox + " ]";
+        return descripcionEnEtiqueta;
     }
 
 }

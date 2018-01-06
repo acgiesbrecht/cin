@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.panemu.tiwulfx.control.TypeAheadField?>
+<?import com.chortitzer.cin.bas.precioscontratos.utils.tiwulfx.TypeAheadField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -13,112 +15,161 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import jidefx.scene.control.field.FormattedTextField?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 <?import tornadofx.control.DateTimePicker?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chortitzer.cin.bas.precioscontratos.ui.bascula.pesadas.TblpesadasView">
-   <ProgressIndicator fx:id="loadingIndicator" />
-    <SplitPane dividerPositions="0.7" orientation="VERTICAL" VBox.vgrow="ALWAYS">
-        <items>
-            <AnchorPane>
-                        <TableView fx:id="itemsTable" prefHeight="400">
-                            <placeholder>
-                                <Label text="Sin datos." />
-                            </placeholder>
-                            <columns>
-                                <TableColumn text="Fecha/Hora">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="fechahora" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn text="Remision">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="idRemision" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn text="Chapa">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="chapa" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn text="Empresa">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="empresaid" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn text="Producto">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="productoid" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn style="-fx-alignment: CENTER-RIGHT" text="Bruto (Kg)">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="bruto" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn style="-fx-alignment: CENTER-RIGHT" text="Tara (Kg)">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="tara" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn style="-fx-alignment: CENTER-RIGHT" text="Neto (Kg)">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="neto" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn style="-fx-alignment: CENTER-RIGHT" text="Precio (PYG/Kg)">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="precioGsPorKg" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                            </columns>
-                        </TableView>
-            </AnchorPane>
-            <AnchorPane>
-                <GridPane hgap="10" vgap="10" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
-                    <Label text="Fecha" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <DateTimePicker fx:id="dtpFecha" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                    <Label text="Remision" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <TextField fx:id="txtIdRemision" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                    <Label text="Chapa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <TextField fx:id="txtChapa" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                    <Label text="Empresa" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <TypeAheadField fx:id="thfEmpresa" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                    <Label text="Producto" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                    <TypeAheadField fx:id="thfProducto" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                    <Label text="Bruto (Kg)" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                    <TextField fx:id="txtBruto" alignment="CENTER_RIGHT" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                    <Label text="Tara (Kg)" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                    <TextField fx:id="txtTara" alignment="CENTER_RIGHT" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                    <Label text="Precio (PYG/Kg)" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                    <TextField fx:id="txtPrecioPorKg" alignment="CENTER_RIGHT" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-                </GridPane>
-            </AnchorPane>
-        </items>
-    </SplitPane>
-    <AnchorPane>
-        <ButtonBar AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
-            <buttons>
-                <Button fx:id="btnAdd" onAction="#add" text="Nuevo" />
-                <Button fx:id="btnSave" onAction="#save" text="Guardar" />
-                <Button fx:id="btnDelete" onAction="#delete" text="Eliminar" />
-                <Button fx:id="btnReset" onAction="#reset" text="Cancelar" />
-            </buttons>
-        </ButtonBar>
-    </AnchorPane>
-</VBox>
+<?import javafx.scene.control.Pagination?>
+<StackPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.chortitzer.cin.bas.precioscontratos.ui.bascula.pesadas.TblpesadasView">
+    <VBox fx:id="mainBox">
+        <SplitPane dividerPositions="0.7" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+            <items>
+                <AnchorPane>
+                    <VBox>
+                        <HBox alignment="CENTER_RIGHT">
+                            <CustomTextField fx:id="txtFilter" styleClass="searchField">
+                                <left>
+                                    <Label styleClass="searchBoxLabel">
+                                        <graphic>
+                                            <FontAwesomeIconView styleClass="searchBoxLabelIcon"/>
+                                        </graphic>
+                                    </Label>
+                                </left>
+                            </CustomTextField>
+                            <padding>
+                                <Insets bottom="5.0" right="5.0" top="5.0"/>
+                            </padding>
+                        </HBox>
+                        <Pagination fx:id="pagination">
+                            <fx:define>
+                                <TableView fx:id="itemsTable" AnchorPane.bottomAnchor="10.0"
+                                           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                                           AnchorPane.topAnchor="10.0">
+                                    <placeholder>
+                                        <Label text="Sin datos."/>
+                                    </placeholder>
+                                    <columns>
+                                        <TableColumn prefWidth="60" text="Nro">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="id"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="160" text="Fecha/Hora">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="fechahora"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="140" text="Remision">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="idRemision"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="70" text="Chapa">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="chapa"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="350" text="Empresa">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="empresaid"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="200" text="Producto">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="productoid"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="70" style="-fx-alignment: CENTER-RIGHT"
+                                                     text="Bruto (Kg)">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="bruto"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="70" style="-fx-alignment: CENTER-RIGHT"
+                                                     text="Tara (Kg)">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="tara"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="70" style="-fx-alignment: CENTER-RIGHT"
+                                                     text="Neto (Kg)">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="neto"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="70" style="-fx-alignment: CENTER-RIGHT"
+                                                     text="Precio (PYG/Kg)">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="precioGsPorKg"/>
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                            </fx:define>
+                        </Pagination>
+                    </VBox>
+                </AnchorPane>
+                <AnchorPane fx:id="editPane">
+                    <GridPane hgap="10" vgap="10" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0">
+                        <Label text="Fecha" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <DateTimePicker fx:id="dtpFecha" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                        <Label text="Remision" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <TextField fx:id="txtIdRemision" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                        <Label text="Chapa" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <TextField fx:id="txtChapa" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                        <Label text="Empresa" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <TypeAheadField fx:id="thfEmpresa" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                        <Label text="Producto" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                        <TypeAheadField fx:id="thfProducto" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                        <Label text="Bruto (Kg)" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                        <FormattedTextField fx:id="txtBruto" alignment="CENTER_RIGHT" autoSelectAll="true"
+                                            GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                        <Label text="Tara (Kg)" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                        <FormattedTextField fx:id="txtTara" alignment="CENTER_RIGHT" autoSelectAll="true"
+                                            GridPane.columnIndex="4" GridPane.rowIndex="3"/>
+                        <Label text="Precio (PYG/Kg)" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                        <FormattedTextField fx:id="txtPrecioPorKg" alignment="CENTER_RIGHT" autoSelectAll="true"
+                                            GridPane.columnIndex="4" GridPane.rowIndex="4"/>
+                        <columnConstraints>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                            <ColumnConstraints/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                        </rowConstraints>
+                    </GridPane>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+        <AnchorPane fx:id="buttonBar">
+            <ButtonBar AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+                       AnchorPane.topAnchor="10">
+                <buttons>
+                    <Button fx:id="btnAdd" onAction="#add" text="Nuevo"/>
+                    <Button fx:id="btnSave" onAction="#save" text="Guardar"/>
+                    <Button fx:id="btnDelete" onAction="#delete" text="Eliminar"/>
+                    <Button fx:id="btnReset" onAction="#reset" text="Cancelar"/>
+                </buttons>
+            </ButtonBar>
+        </AnchorPane>
+    </VBox>
+    <VBox fx:id="loadingIndicator" alignment="CENTER" fillWidth="false">
+        <ProgressIndicator progress="-1"/>
+        <StackPane.margin>
+            <Insets/>
+        </StackPane.margin>
+    </VBox>
+
+</StackPane>

@@ -4,10 +4,12 @@ import com.chortitzer.cin.bas.precioscontratos.model.bascula.TblBasContratos;
 import com.chortitzer.cin.bas.precioscontratos.model.bascula.Tblempresa;
 import com.chortitzer.cin.bas.precioscontratos.model.bascula.Tblproductos;
 import com.chortitzer.cin.bas.precioscontratos.ui.AbstractView;
-import com.panemu.tiwulfx.control.TypeAheadField;
+import com.chortitzer.cin.bas.precioscontratos.utils.tiwulfx.TypeAheadField;
+import com.chortitzer.cin.bas.precioscontratos.utils.tiwulfx.TypeAheadTableCell;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 import tornadofx.control.DateTimePicker;
@@ -29,6 +31,9 @@ public class TblBasContratosView extends AbstractView<TblBasContratos> implement
     private TblBasContratosViewModel viewModel;
 
     public void initialize() {
+
+        //empresaColumn.setCellFactory(TypeAheadTableCell::new);
+
         setViewModel(viewModel);
         initializeAbstract();
 
@@ -45,7 +50,8 @@ public class TblBasContratosView extends AbstractView<TblBasContratos> implement
 
     @FXML
     void add() {
-        viewModel.add();
+        addAbstract();
+        viewModel.add(new TblBasContratos());
         dtpFecha.setDateTimeValue(LocalDateTime.now());
         thfEmpresa.requestFocus();
     }

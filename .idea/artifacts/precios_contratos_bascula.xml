@@ -1,0 +1,25 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="precios-contratos-bascula">
+    <output-path>$PROJECT_DIR$/out/artifacts/precios_contratos_bascula</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="alias" value="cch" />
+        <option name="appClass" value="com.chortitzer.cin.bas.precioscontratos.App" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="keypass" value="MTIzNDU2Nzg5" />
+        <option name="keystore" value="C:\Users\adriang\IdeaProjects\clientkeystore" />
+        <option name="nativeBundle" value="exe" />
+        <option name="storepass" value="MTIzNDU2Nzg5" />
+        <option name="title" value="Precios Contratos Bascula" />
+        <option name="vendor" value="Chortitzer" />
+        <option name="version" value="1" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="precios-contratos-bascula.jar">
+        <element id="module-output" name="precios-contratos-bascula" />
+      </element>
+    </root>
+  </artifact>
+</component>

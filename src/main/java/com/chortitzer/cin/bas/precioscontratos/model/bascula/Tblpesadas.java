@@ -4,19 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -70,6 +58,8 @@ public class Tblpesadas implements Serializable {
     @JoinColumn(name = "productoid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tblproductos productoid;
+    @Transient
+    private Integer neto;
 
     public Tblpesadas() {
     }
@@ -199,8 +189,13 @@ public class Tblpesadas implements Serializable {
         return id.toString();
     }
 
+    @Transient
     public int getNeto() {
         return getBruto() - getTara();
+    }
+    @Transient
+    public void setNeto(Integer neto) {
+        this.neto = neto;
     }
 
 }

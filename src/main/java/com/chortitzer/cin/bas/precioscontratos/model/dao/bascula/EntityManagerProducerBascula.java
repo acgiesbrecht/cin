@@ -1,6 +1,5 @@
 package com.chortitzer.cin.bas.precioscontratos.model.dao.bascula;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -15,7 +14,6 @@ public class EntityManagerProducerBascula {
                 .createEntityManagerFactory("PU")
                 .createEntityManager();
     }
-
 
     public void close(
             @Disposes @PgBascula EntityManager entityManager) {

@@ -12,7 +12,6 @@ import javax.persistence.Persistence;
 public class EntityManagerProducerBalanceados {
 
     @Produces @PgBalanceados
-    @ApplicationScoped
     public EntityManager createEntityManager() {
         return Persistence
                 .createEntityManagerFactory("PU_FBA")
