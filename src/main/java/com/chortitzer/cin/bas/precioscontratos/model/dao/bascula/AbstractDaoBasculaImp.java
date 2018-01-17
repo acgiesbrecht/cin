@@ -15,7 +15,8 @@ import java.util.List;
 public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
     protected Class<T> entityClass;
 
-    @Inject @PgBascula
+    @Inject
+    @PgBascula
     private EntityManager em;
 
     public AbstractDaoBasculaImp(Class<T> entityClass) {
@@ -35,6 +36,14 @@ public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
         return getEntityManager().getMetamodel().entity(entityClass);
     }
 
+    public void persist(List<T> listEntity) {
+        beginTransaction();
+        listEntity.stream().forEach(e -> {
+            getEntityManager().persist(e);
+        });
+        commitTransaction();
+    }
+
     public void persist(T entity) {
         beginTransaction();
         getEntityManager().persist(entity);
@@ -48,8 +57,14 @@ public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
     }
 
     public void remove(T entity) {
-    beginTransaction();
+        beginTransaction();
         getEntityManager().remove(getEntityManager().merge(entity));
+        commitTransaction();
+    }
+
+    public void removeAll() {
+        beginTransaction();
+        getEntityManager().createQuery("delete from " + entityClass.getName() + " t").executeUpdate();
         commitTransaction();
     }
 
@@ -66,8 +81,13 @@ public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
     }
 
     @Transactional
-    public List<T> getListFromQuery(String jpqlQuery){
-        return  (List<T>)getEntityManager().createQuery(jpqlQuery).getResultList();
+    public List<T> getListFromQuery(String jpqlQuery) {
+        return (List<T>) getEntityManager().createQuery(jpqlQuery).getResultList();
+    }
+
+    @Transactional
+    public T getEntityFromQuery(String jpqlQuery) {
+        return (T) getEntityManager().createQuery(jpqlQuery).getSingleResult();
     }
 
     public void beginTransaction() {
@@ -75,6 +95,7 @@ public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
             getEntityManager().getTransaction().begin();
         } catch (IllegalStateException e) {
             rollBackTransaction();
+            e.printStackTrace();
         }
     }
 
@@ -83,6 +104,7 @@ public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
             getEntityManager().getTransaction().commit();
         } catch (IllegalStateException | RollbackException e) {
             rollBackTransaction();
+            e.printStackTrace();
         }
     }
 

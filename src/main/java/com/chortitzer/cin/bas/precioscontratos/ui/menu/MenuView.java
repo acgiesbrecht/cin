@@ -1,5 +1,10 @@
 package com.chortitzer.cin.bas.precioscontratos.ui.menu;
 
+import com.chortitzer.cin.bas.precioscontratos.model.bascula.TblBasNotasDeRemision;
+import com.chortitzer.cin.bas.precioscontratos.ui.bascula.contribuyentes.TblContribuyentesUpdateView;
+import com.chortitzer.cin.bas.precioscontratos.ui.bascula.contribuyentes.TblContribuyentesUpdateViewModel;
+import com.chortitzer.cin.bas.precioscontratos.ui.bascula.notasderemision.TblBasNotasDeRemisionView;
+import com.chortitzer.cin.bas.precioscontratos.ui.bascula.notasderemision.TblBasNotasDeRemisionViewModel;
 import com.chortitzer.cin.bas.precioscontratos.ui.bascula.pesadas.TblpesadasView;
 import com.chortitzer.cin.bas.precioscontratos.ui.bascula.productos.TblproductosView;
 import com.chortitzer.cin.bas.precioscontratos.ui.bascula.productos.TblproductosViewModel;
@@ -18,14 +23,14 @@ import de.saxsys.mvvmfx.ViewTuple;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.inject.Inject;
 
 public class MenuView implements FxmlView<MenuViewModel> {
-
-
 
 	@InjectViewModel
 	private MenuViewModel viewModel;
@@ -85,6 +90,17 @@ public class MenuView implements FxmlView<MenuViewModel> {
     void mnuConvertidores(){
         final ViewTuple<TblProductoxConvertidoresView, TblProductoxConvertidoresViewModel> tuple = FluentViewLoader.fxmlView(TblProductoxConvertidoresView.class).load();
         setView(tuple.getView());
+    }
+
+    @FXML
+    void mnuUpdateContribuyentes(){
+        final ViewTuple<TblContribuyentesUpdateView, TblContribuyentesUpdateViewModel> tuple = FluentViewLoader.fxmlView(TblContribuyentesUpdateView.class).load();
+        Stage modal = new Stage();
+        modal.initOwner(primaryStage);
+        tuple.getCodeBehind().owningStage.set(modal);
+        modal.initModality(Modality.APPLICATION_MODAL);
+        modal.setScene(new Scene(tuple.getView()));
+        modal.showAndWait();
     }
 
 	private void setView(Parent view){

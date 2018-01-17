@@ -8,3 +8,8 @@
 .searchField:fail {
     -fx-background-color: -colour-search-fail;
 }
+.table-row-cell:selected {
+    -fx-background-color: #0096C9;
+    -fx-accent: #0096C9;
+    -fx-focus-color: #039ED3;
+}

@@ -1,4 +1,9 @@
 package com.chortitzer.cin.bas.precioscontratos.model.bascula;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -8,6 +13,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ *
  * @author adriang
  */
 @Entity
@@ -28,7 +34,6 @@ public class Tblpesadas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
@@ -41,6 +46,8 @@ public class Tblpesadas implements Serializable {
     @Basic(optional = false)
     @Column(name = "tara")
     private int tara;
+    @Transient
+    private int neto;
     @Basic(optional = false)
     @Column(name = "fechahora")
     private LocalDateTime fechahora;
@@ -52,14 +59,15 @@ public class Tblpesadas implements Serializable {
     private Integer autorizado;
     @Column(name = "id_remision")
     private String idRemision;
+    @JoinColumn(name = "id_nota_de_remision", referencedColumnName = "id")
+    @OneToOne
+    private TblBasNotasDeRemision idNotaDeRemision;
     @JoinColumn(name = "empresaid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tblempresa empresaid;
     @JoinColumn(name = "productoid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tblproductos productoid;
-    @Transient
-    private Integer neto;
 
     public Tblpesadas() {
     }
@@ -108,6 +116,8 @@ public class Tblpesadas implements Serializable {
         this.tara = tara;
     }
 
+    public int getNeto() { return bruto-tara; }
+
     public LocalDateTime getFechahora() {
         return fechahora;
     }
@@ -148,6 +158,14 @@ public class Tblpesadas implements Serializable {
         this.idRemision = idRemision;
     }
 
+    public TblBasNotasDeRemision getIdNotaDeRemision() {
+        return idNotaDeRemision;
+    }
+
+    public void setIdNotaDeRemision(TblBasNotasDeRemision idNotaDeRemision) {
+        this.idNotaDeRemision = idNotaDeRemision;
+    }
+
     public Tblempresa getEmpresaid() {
         return empresaid;
     }
@@ -186,16 +204,7 @@ public class Tblpesadas implements Serializable {
 
     @Override
     public String toString() {
-        return id.toString();
-    }
-
-    @Transient
-    public int getNeto() {
-        return getBruto() - getTara();
-    }
-    @Transient
-    public void setNeto(Integer neto) {
-        this.neto = neto;
+        return "com.chortitzer.industria.bascula.domain.Tblpesadas[ id=" + id + " ]";
     }
 
 }

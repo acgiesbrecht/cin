@@ -19,6 +19,8 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
 						<MenuItem mnemonicParsing="false" onAction="#mnuEmpresas" text="Empresas" />
 						<MenuItem mnemonicParsing="false" onAction="#mnuProductos" text="Productos" />
+
+						<MenuItem mnemonicParsing="false" onAction="#mnuUpdateContribuyentes" text="Actualizar Lista de Contribuyentes"/>
 					</items>
 				</Menu>
                 <Menu mnemonicParsing="false" text="Fabrica de Balanceados">

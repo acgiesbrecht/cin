@@ -20,6 +20,10 @@
             <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
             <property name="hibernate.generate_statistics" value="true" />
             <property name="hibernate.jdbc.use_get_generated_keys" value="true" />
+            <property name="hibernate.jdbc.batch_size" value="30" />
+            <property name="hibernate.order_inserts" value="true"/>
+            <property name="hibernate.order_updates" value="true" />
+            <property name="hibernate.jdbc.batch_versioned_data" value="true" />
 
             <!-- Configuring Connection Pool-->
             <property name="connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />

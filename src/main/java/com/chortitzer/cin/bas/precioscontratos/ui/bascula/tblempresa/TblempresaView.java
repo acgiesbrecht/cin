@@ -28,12 +28,12 @@ public class TblempresaView extends AbstractView<Tblempresa> implements FxmlView
             txtRUC.textProperty().bindBidirectional(viewModel.rucProperty());
             txtCtaCte.textProperty().bindBidirectional(viewModel.ctacteProperty());
         });
-    }
 
-    @FXML
-    void add() {
-        addAbstract();
-        viewModel.add(new Tblempresa());
-        txtNombre.requestFocus();
+        btnAdd.setOnAction((event) -> {
+            addAbstract();
+            viewModel.add(new Tblempresa());
+            txtNombre.requestFocus();
+        });
+
     }
 }

@@ -33,12 +33,13 @@ public class TblProductoxConvertidoresView extends AbstractView<TblProductoxConv
         });
 
         thfProducto.setItems(viewModel.getProductos());
+
+        btnAdd.setOnAction((event) -> {
+            addAbstract();
+            viewModel.add(new TblProductoxConvertidores());
+            thfProducto.requestFocus();
+        });
     }
 
-    @FXML
-    void add() {
-        addAbstract();
-        viewModel.add(new TblProductoxConvertidores());
-        thfProducto.requestFocus();
-    }
+
 }
