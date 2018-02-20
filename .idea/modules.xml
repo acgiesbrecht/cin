@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/precios-contratos-bascula.iml" filepath="$PROJECT_DIR$/precios-contratos-bascula.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cin.iml" filepath="$PROJECT_DIR$/cin.iml" />
     </modules>
   </component>
 </project>

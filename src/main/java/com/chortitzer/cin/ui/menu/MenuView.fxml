@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="masterAnchorPane" maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chortitzer.cin.ui.menu.MenuView">
+	<children>
+		<MenuBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<menus>
+				<Menu fx:id="mnuBascula" text="Bascula">
+					<items>
+						<MenuItem fx:id="mnuPesadas" text="Pesadas" />
+						<MenuItem fx:id="mnuFacturas" text="Facturas" />
+						<SeparatorMenuItem />
+						<MenuItem fx:id="mnuContratos" text="Contratos" />
+						<MenuItem fx:id="mnuPrecios" text="Precios" />
+                        <SeparatorMenuItem  />
+						<MenuItem fx:id="mnuEmpresas" text="Empresas" />
+						<MenuItem fx:id="mnuProductos" text="Productos" />
+						<SeparatorMenuItem  />
+						<MenuItem fx:id="mnuAnalisisTipo" text="Tipo de Analisis" />
+						<SeparatorMenuItem  />
+						<MenuItem fx:id="mnuUpdateContribuyentes" text="Actualizar Lista de Contribuyentes"/>
+					</items>
+				</Menu>
+                <Menu fx:id="mnuBalanceados" text="Balanceados">
+                    <items>
+                        <MenuItem fx:id="mnuConvertidores" text="Convertidores" />
+                    </items>
+                </Menu>
+				<Menu fx:id="mnuEsencia" text="Esencia">
+					<items>
+						<MenuItem fx:id="mnuEsenciaEtiquetas" text="Etiquetas" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</children>
+</AnchorPane>

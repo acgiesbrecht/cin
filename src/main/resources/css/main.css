@@ -8,8 +8,24 @@
 .searchField:fail {
     -fx-background-color: -colour-search-fail;
 }
-.table-row-cell:selected {
-    -fx-background-color: #0096C9;
-    -fx-accent: #0096C9;
-    -fx-focus-color: #039ED3;
+.pesadas-ndr-fac:selected {
+    -fx-background-color: green;
+    -fx-text-background-color: white;
+}
+.pesadas-ndr-fac {
+    -fx-background-color: #ccffcc;
+}
+.pesadas-ndr:selected {
+    -fx-background-color: yellow;
+    -fx-text-background-color: black;
+}
+.pesadas-ndr {
+    -fx-background-color: #ffffaf;
+}
+.pesadas:selected {
+    -fx-background-color: red;
+    -fx-text-background-color: white;
+}
+.pesadas {
+    -fx-background-color: #ffe6e6;
 }

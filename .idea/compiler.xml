@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cin" />
         <module name="precios-contratos-bascula" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cin" target="1.8" />
       <module name="precios-contratos-bascula" target="1.8" />
     </bytecodeTargetLevel>
   </component>

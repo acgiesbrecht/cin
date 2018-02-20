@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <artifactId>precioscontratos</artifactId>
-    <groupId>com.chortitzer.cin.bas</groupId>
+    <artifactId>cin</artifactId>
+    <groupId>com.chortitzer</groupId>
     <version>1.0.0</version>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>precios-contratos-bascula</name>
+    <name>CIN</name>
 
     <scm>
         <connection>scm:svn:http://127.0.0.1/dummy</connection>
@@ -23,7 +23,7 @@
             <plugin>
                 <groupId>org.icestuff</groupId>
                 <artifactId>getdown-maven-plugin</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>0.0.2-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -31,13 +31,13 @@
                             <goal>updates</goal>
                         </goals>
                         <configuration>
-                            <appbase>http://192.168.1.26/java/pcb</appbase>
+                            <appbase>http://192.168.1.26/java/cin</appbase>
                             <libPath>lib</libPath>
-                            <mainClass>com.chortitzer.cin.bas.precioscontratos.App</mainClass>
+                            <mainClass>com.chortitzer.cin.App</mainClass>
                             <outputJarVersions>true</outputJarVersions>
                             <verbose>true</verbose>
                             <ui>
-                                <name>Semillas 3.0</name>
+                                <name>CIN 1.0</name>
                                 <progress>80, 244, 196, 11</progress>
                                 <progressText>FFFFFF</progressText>
                                 <statusText>FFFFFF</statusText>
@@ -95,6 +95,11 @@
         <dependency>
             <groupId>de.saxsys</groupId>
             <artifactId>mvvmfx-cdi</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.saxsys</groupId>
+            <artifactId>mvvmfx-validation</artifactId>
             <version>1.7.0</version>
         </dependency>
         <dependency>
@@ -218,6 +223,16 @@
             <version>2.0.1.Final</version>
         </dependency>
     </dependencies>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>getdown-maven-plugin-mvn-repo</id>
+            <url>https://raw.github.com/rockfireredmoon/getdown-maven-plugin/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
