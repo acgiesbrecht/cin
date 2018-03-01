@@ -8,13 +8,28 @@
 .searchField:fail {
     -fx-background-color: -colour-search-fail;
 }
-.pesadas-ndr-fac:selected {
+.pesadas-ndr-facm-facf:selected {
     -fx-background-color: green;
     -fx-text-background-color: white;
 }
-.pesadas-ndr-fac {
+.pesadas-ndr-facm-facf {
     -fx-background-color: #ccffcc;
 }
+.pesadas-ndr-facm:selected {
+    -fx-background-color: blue;
+    -fx-text-background-color: white;
+}
+.pesadas-ndr-facm {
+    -fx-background-color: #d3d5ff;
+}
+.pesadas-ndr-facf:selected {
+    -fx-background-color: blue;
+    -fx-text-background-color: white;
+}
+.pesadas-ndr-facf {
+    -fx-background-color: #d3d5ff;
+}
+
 .pesadas-ndr:selected {
     -fx-background-color: yellow;
     -fx-text-background-color: black;

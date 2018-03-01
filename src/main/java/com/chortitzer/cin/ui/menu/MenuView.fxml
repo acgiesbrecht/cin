@@ -13,7 +13,9 @@
 				<Menu fx:id="mnuBascula" text="Bascula">
 					<items>
 						<MenuItem fx:id="mnuPesadas" text="Pesadas" />
-						<MenuItem fx:id="mnuFacturas" text="Facturas" />
+                        <SeparatorMenuItem />
+                        <MenuItem fx:id="mnuFacturasFlete" text="Facturas de Flete" />
+						<MenuItem fx:id="mnuFacturasMercaderia" text="Facturas de Mercaderia" />
 						<SeparatorMenuItem />
 						<MenuItem fx:id="mnuContratos" text="Contratos" />
 						<MenuItem fx:id="mnuPrecios" text="Precios" />
@@ -29,6 +31,7 @@
                 <Menu fx:id="mnuBalanceados" text="Balanceados">
                     <items>
                         <MenuItem fx:id="mnuConvertidores" text="Convertidores" />
+                        <MenuItem fx:id="mnuFbaEtiquetas" text="Etiquetas" />
                     </items>
                 </Menu>
 				<Menu fx:id="mnuEsencia" text="Esencia">

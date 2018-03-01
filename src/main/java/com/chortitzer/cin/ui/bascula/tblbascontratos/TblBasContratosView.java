@@ -7,6 +7,7 @@ import com.chortitzer.cin.ui.AbstractView;
 import com.chortitzer.cin.ui.fieldextensions.TableColumnBase;
 import com.chortitzer.cin.ui.fieldextensions.TableColumnInteger;
 import com.chortitzer.cin.ui.fieldextensions.TableColumnLocalDateTime;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldInteger;
 import com.chortitzer.cin.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -23,7 +24,7 @@ public class TblBasContratosView extends AbstractView<TblBasContratos> implement
     private DateTimePicker dtpFecha = new DateTimePicker();
     private TypeAheadField<Tblempresa> thfEmpresa = new TypeAheadField<>();
     private TypeAheadField<Tblproductos> thfProducto = new TypeAheadField<>();
-    private NumberField txtPrecioPorKg = new NumberField();
+    private TextFieldInteger txtPrecioPorKg = new TextFieldInteger();
 
     @InjectViewModel
     private TblBasContratosViewModel viewModel;
@@ -51,7 +52,6 @@ public class TblBasContratosView extends AbstractView<TblBasContratos> implement
         gridPane.add(thfEmpresa, 2, 2);
         gridPane.add(thfProducto, 2, 3);
         txtPrecioPorKg.setAlignment(Pos.CENTER_RIGHT);
-        txtPrecioPorKg.setAutoSelectAll(true);
         gridPane.add(txtPrecioPorKg, 2, 4);
 
         txtFilter.textProperty().addListener((observable, oldValue, newValue) -> {

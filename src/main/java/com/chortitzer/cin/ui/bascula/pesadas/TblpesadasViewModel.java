@@ -28,6 +28,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -112,6 +113,7 @@ public class TblpesadasViewModel extends AbstractViewModel<Tblpesadas> {
         modal.initOwner(primayStage);
         tuple.getCodeBehind().owningStage.set(modal);
         modal.initModality(Modality.APPLICATION_MODAL);
+        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/cin-icon.png")));
         modal.setScene(new Scene(tuple.getView()));
         modal.showAndWait();
 

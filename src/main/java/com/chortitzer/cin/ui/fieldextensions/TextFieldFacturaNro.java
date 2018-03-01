@@ -1,25 +1,14 @@
 package com.chortitzer.cin.ui.fieldextensions;
 
-import com.sun.javafx.scene.KeyboardShortcutsHandler;
-import com.sun.javafx.scene.traversal.Direction;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.event.EventTarget;
-import javafx.scene.Node;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 
-import java.awt.*;
+public class TextFieldFacturaNro extends MaskField {
 
-import static javafx.scene.input.KeyCode.TAB;
-
-public class FacturaNroField extends MaskField {
-
-    public FacturaNroField() {
+    public TextFieldFacturaNro() {
         super();
         focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -40,7 +29,8 @@ public class FacturaNroField extends MaskField {
                 }
             }
         });
-        this.setMask("DDD-DDD-DDDDDDD");
+        setMask("DDD-DDD-DDDDDDD");
+        setMaxWidth(150);
         final KeyCombination ENTER = new KeyCodeCombination(KeyCode.ENTER);
 
         /*addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {

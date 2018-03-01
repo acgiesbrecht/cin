@@ -56,6 +56,14 @@ public abstract class AbstractDaoBasculaImp<T> implements AbstractDao<T> {
         commitTransaction();
     }
 
+    public void merge(List<T> listEntity) {
+        beginTransaction();
+        listEntity.stream().forEach(e -> {
+            getEntityManager().merge(e);
+        });
+        commitTransaction();
+    }
+
     public void remove(T entity) {
         beginTransaction();
         getEntityManager().remove(getEntityManager().merge(entity));

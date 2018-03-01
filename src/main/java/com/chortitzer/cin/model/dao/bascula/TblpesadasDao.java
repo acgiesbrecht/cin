@@ -20,7 +20,7 @@ public class TblpesadasDao extends AbstractDaoBasculaImp<Tblpesadas> {
     public List<Tblpesadas> findAll() {
         return (List<Tblpesadas>) getEntityManager().createQuery("select e from Tblpesadas e where e.fechahora >= '" +
                 String.valueOf(LocalDate.now().minusYears(1).getYear()) +
-                "-01-01 00:00:00' order by e.id desc").getResultList();
+                "-01-01 00:00:00' and e.productoid.materiaprima = 1 order by e.id desc").getResultList();
     }
 
 }

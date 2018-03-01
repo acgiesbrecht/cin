@@ -4,19 +4,18 @@ package com.chortitzer.cin.model.bascula;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.io.Serializable;
 
 /**
  *
  * @author adriang
  */
 @Entity
-@Table(name = "tbl_bas_facturas")
+@Table(name = "tbl_bas_facturas_mercaderia")
 @XmlRootElement
-public class TblBasFacturas implements Serializable {
+public class TblBasFacturasMercaderia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,17 +39,22 @@ public class TblBasFacturas implements Serializable {
     @Basic(optional = false)
     @Column(name = "cantidad")
     private long cantidad;
-    @OneToMany(mappedBy = "idFactura")
+    @Basic(optional = false)
+    @Column(name = "nro_oc")
+    private Integer nroOc;
+
+    @OneToMany(mappedBy = "idFacturaMercaderia",
+            cascade = CascadeType.ALL)
     private List<TblBasNotasDeRemision> tblBasNotasDeRemisionList;
 
-    public TblBasFacturas() {
+    public TblBasFacturasMercaderia() {
     }
 
-    public TblBasFacturas(Integer id) {
+    public TblBasFacturasMercaderia(Integer id) {
         this.id = id;
     }
 
-    public TblBasFacturas(Integer id, String nro, String nroTimbrado, String ruc, long cantidad) {
+    public TblBasFacturasMercaderia(Integer id, String nro, String nroTimbrado, String ruc, long cantidad) {
         this.id = id;
         this.nro = nro;
         this.nroTimbrado = nroTimbrado;
@@ -114,6 +118,15 @@ public class TblBasFacturas implements Serializable {
         this.cantidad = cantidad;
     }
 
+    public Integer getNroOc() {
+        return nroOc;
+    }
+
+    public void setNroOc(Integer nroOc) {
+        this.nroOc = nroOc;
+    }
+
+
     @XmlTransient
     public List<TblBasNotasDeRemision> getTblBasNotasDeRemisionList() {
         return tblBasNotasDeRemisionList;
@@ -133,10 +146,10 @@ public class TblBasFacturas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TblBasFacturas)) {
+        if (!(object instanceof TblBasFacturasMercaderia)) {
             return false;
         }
-        TblBasFacturas other = (TblBasFacturas) object;
+        TblBasFacturasMercaderia other = (TblBasFacturasMercaderia) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -145,7 +158,7 @@ public class TblBasFacturas implements Serializable {
 
     @Override
     public String toString() {
-        return "com.chortitzer.industria.bascula.domain.TblBasFacturas[ id=" + id + " ]";
+        return "com.chortitzer.industria.bascula.domain.TblBasFacturasMercaderia[ id=" + id + " ]";
     }
 
 }

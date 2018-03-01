@@ -19,6 +19,8 @@ import javafx.stage.WindowEvent;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * Entry point of the application.
@@ -53,7 +55,11 @@ public class App extends MvvmfxCdiApplication {
         });
 
         mainStage = stage;
-        mainStage.setTitle("CIN 1.0");
+
+        Properties prop = new Properties();
+        prop.load(this.getClass().getResourceAsStream("/version.properties"));
+
+        stage.setTitle("CIN " + prop.getProperty("project.version") + "." + prop.getProperty("project.build"));
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/cin-icon.png")));
         stage.setScene(scene);
         stage.show();

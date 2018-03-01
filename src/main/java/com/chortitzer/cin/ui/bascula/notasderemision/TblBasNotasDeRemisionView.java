@@ -1,8 +1,8 @@
 package com.chortitzer.cin.ui.bascula.notasderemision;
 
-import com.chortitzer.cin.ui.fieldextensions.DatePickerField;
-import com.chortitzer.cin.ui.fieldextensions.FacturaNroField;
-import com.chortitzer.cin.ui.fieldextensions.MaskField;
+import com.chortitzer.cin.ui.fieldextensions.DateTimePickerField;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldFacturaNro;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldTimbrado;
 import com.chortitzer.cin.utils.InformationDialog;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -36,9 +36,9 @@ public class TblBasNotasDeRemisionView implements FxmlView<TblBasNotasDeRemision
     @Inject
     InformationDialog informationDialog;
 
-    private DatePickerField dtpFecha = new DatePickerField();
-    private FacturaNroField txtNro = new FacturaNroField();
-    private MaskField txtNroTimbrado = new MaskField();
+    private DateTimePickerField dtpFecha = new DateTimePickerField();
+    private TextFieldFacturaNro txtNro = new TextFieldFacturaNro();
+    private TextFieldTimbrado txtNroTimbrado = new TextFieldTimbrado();
     private TextField thfRazonSocialEmisor = new TextField();
     private TextField txtRucEmisor = new TextField();
     private TextField thfRazonSocialTransportadora = new TextField();
@@ -78,8 +78,6 @@ public class TblBasNotasDeRemisionView implements FxmlView<TblBasNotasDeRemision
 
         txtNro.setMaxWidth(150);
         gridPane.add(txtNro, 1, 1);
-        txtNroTimbrado.setMask("DDDDDDD");
-        txtNroTimbrado.setPrefWidth(100);
         gridPane.add(txtNroTimbrado, 1, 2);
         dtpFecha.setFormat("dd/MM/yy");
         gridPane.add(dtpFecha, 1, 3);

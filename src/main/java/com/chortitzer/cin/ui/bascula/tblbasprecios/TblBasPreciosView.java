@@ -3,10 +3,7 @@ package com.chortitzer.cin.ui.bascula.tblbasprecios;
 import com.chortitzer.cin.model.bascula.TblBasPrecios;
 import com.chortitzer.cin.model.bascula.Tblproductos;
 import com.chortitzer.cin.ui.AbstractView;
-import com.chortitzer.cin.ui.fieldextensions.TableColumnBase;
-import com.chortitzer.cin.ui.fieldextensions.TableColumnInteger;
-import com.chortitzer.cin.ui.fieldextensions.TableColumnLocalDateTime;
-import com.chortitzer.cin.ui.fieldextensions.TextFieldLong;
+import com.chortitzer.cin.ui.fieldextensions.*;
 import com.chortitzer.cin.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -22,7 +19,7 @@ public class TblBasPreciosView extends AbstractView<TblBasPrecios> implements Fx
 
     private DateTimePicker dtpFecha = new DateTimePicker();
     private TypeAheadField<Tblproductos> thfProducto = new TypeAheadField<>();
-    private TextFieldLong txtPrecioPorKg = new TextFieldLong();
+    private TextFieldInteger txtPrecioPorKg = new TextFieldInteger();
 
     @InjectViewModel
     private TblBasPreciosViewModel viewModel;

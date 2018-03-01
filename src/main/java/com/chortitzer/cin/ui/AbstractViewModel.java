@@ -103,6 +103,7 @@ public class AbstractViewModel<T> implements ViewModel {
     public void reset() {
         try {
             itemWrapper.reload();
+            updateItemsList();
         } catch (Exception ex) {
             dialog.showAlert(ex.getMessage());
         }

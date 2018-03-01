@@ -9,7 +9,6 @@
         <option name="htmlPlaceholderId" value="" />
         <option name="keypass" value="MTIzNDU2Nzg5" />
         <option name="keystore" value="C:\Users\adriang\IdeaProjects\clientkeystore" />
-        <option name="nativeBundle" value="msi" />
         <option name="selfSigning" value="false" />
         <option name="storepass" value="MTIzNDU2Nzg5" />
         <option name="title" value="CIN" />

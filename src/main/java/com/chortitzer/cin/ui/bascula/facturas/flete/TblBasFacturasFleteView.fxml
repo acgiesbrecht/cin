@@ -3,6 +3,6 @@
 <?import javafx.scene.layout.StackPane?>
 <StackPane prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.121"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.chortitzer.cin.ui.bascula.facturas.TblBasFacturasView"
+           fx:controller="com.chortitzer.cin.ui.bascula.facturas.flete.TblBasFacturasFleteView"
            fx:id="mainStackPane">
 </StackPane>

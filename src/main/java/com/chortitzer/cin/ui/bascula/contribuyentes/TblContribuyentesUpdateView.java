@@ -1,10 +1,7 @@
 package com.chortitzer.cin.ui.bascula.contribuyentes;
 
-import com.chortitzer.cin.ui.fieldextensions.FacturaNroField;
-import com.chortitzer.cin.ui.fieldextensions.MaskField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
-import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -13,16 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
-import jidefx.scene.control.field.NumberField;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
-import tornadofx.control.DateTimePicker;
-
-import java.text.DecimalFormat;
 
 public class TblContribuyentesUpdateView implements FxmlView<TblContribuyentesUpdateViewModel> {
 

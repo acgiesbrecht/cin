@@ -7,6 +7,7 @@ import com.chortitzer.cin.ui.AbstractView;
 import com.chortitzer.cin.ui.fieldextensions.TableColumnBase;
 import com.chortitzer.cin.ui.fieldextensions.TableColumnInteger;
 import com.chortitzer.cin.ui.fieldextensions.TableColumnLocalDateTime;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldInteger;
 import com.chortitzer.cin.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -28,9 +29,9 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
     private TextField txtChapa = new TextField();
     private TypeAheadField<Tblempresa> thfEmpresa = new TypeAheadField<>();
     private TypeAheadField<Tblproductos> thfProducto = new TypeAheadField<>();
-    private FormattedTextField txtBruto = new FormattedTextField();
-    private FormattedTextField txtTara = new FormattedTextField();
-    private FormattedTextField txtPrecioPorKg = new FormattedTextField();
+    private TextFieldInteger txtBruto = new TextFieldInteger();
+    private TextFieldInteger txtTara = new TextFieldInteger();
+    private TextFieldInteger txtPrecioPorKg = new TextFieldInteger();
     private Button btnRemision = new Button("Nota de Remision");
 
     @InjectViewModel
@@ -50,7 +51,7 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
         TableColumnInteger<Tblpesadas> col7 = new TableColumnInteger<>("Bruto (Kg)", "bruto", 70.0);
         TableColumnInteger<Tblpesadas> col8 = new TableColumnInteger<>("Tara (Kg)", "tara", 70.0);
         TableColumnInteger<Tblpesadas> col9 = new TableColumnInteger<>("Neto (Kg)", "neto", 70.0);
-        TableColumnInteger<Tblpesadas> col10 = new TableColumnInteger<>("Precio (PYG/Kg)", "precioGsProKg", 70.0);
+        TableColumnInteger<Tblpesadas> col10 = new TableColumnInteger<>("Precio (PYG/Kg)", "precioGsPorKg", 70.0);
 
         itemsTable.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10);
 
@@ -68,16 +69,10 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
         gridPane.add(txtChapa, 2, 3);
         gridPane.add(thfEmpresa, 2, 4);
         gridPane.add(thfProducto, 4, 1);
-        txtBruto.setAlignment(Pos.CENTER_RIGHT);
-        txtBruto.setAutoSelectAll(true);
         gridPane.add(txtBruto, 4, 2);
-        txtTara.setAlignment(Pos.CENTER_RIGHT);
-        txtTara.setAutoSelectAll(true);
         gridPane.add(txtTara, 4, 3);
-        txtPrecioPorKg.setAlignment(Pos.CENTER_RIGHT);
-        txtPrecioPorKg.setAutoSelectAll(true);
         gridPane.add(txtPrecioPorKg, 4, 4);
-        gridPane.add(btnRemision,4,5);
+        gridPane.add(btnRemision, 4, 5);
 
         txtFilter.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(pesada -> {
@@ -112,27 +107,22 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
         itemsTable.setRowFactory(tv -> new TableRow<Tblpesadas>() {
             @Override
             public void updateItem(Tblpesadas item, boolean empty) {
-                super.updateItem(item, empty) ;
+                super.updateItem(item, empty);
+                getStyleClass().removeAll("pesadas","pesadas-ndr", "pesadas-ndr-facm", "pesadas-ndr-facf", "pesadas-ndr-facm-facf");
                 if (item == null) {
                     setStyle("");
-                } else if (item.getIdNotaDeRemision()==null) {
-                    //setStyle("-fx-selection-bar: red; -fx-focus-color: #039ED3; -fx-background-color: #ffe6e6;");
-                    getStyleClass().removeAll("pesadas-ndr-fac");
-                    getStyleClass().removeAll("pesadas-ndr");
+                } else if (item.getIdNotaDeRemision() == null) {
                     getStyleClass().addAll("pesadas");
-                } else if (item.getIdNotaDeRemision()!=null) {
-                    if(item.getIdNotaDeRemision().getIdFactura()==null){
-                        getStyleClass().removeAll("pesadas-ndr-fac");
-                        getStyleClass().removeAll("pesadas");
-                        getStyleClass().addAll("pesadas-ndr");
-                    }else{
-                        getStyleClass().removeAll("pesadas-ndr");
-                        getStyleClass().removeAll("pesadas");
-                        getStyleClass().addAll("pesadas-ndr-fac");
-                    }
-
                 } else {
-                    setStyle("");
+                    if (item.getIdNotaDeRemision().getIdFacturaFlete() != null && item.getIdNotaDeRemision().getIdFacturaMercaderia() != null) {
+                        getStyleClass().addAll("pesadas-ndr-facm-facf");
+                    } else if (item.getIdNotaDeRemision().getIdFacturaFlete() != null) {
+                        getStyleClass().addAll("pesadas-ndr-facf");
+                    } else if (item.getIdNotaDeRemision().getIdFacturaMercaderia() != null) {
+                        getStyleClass().addAll("pesadas-ndr-facm");
+                    } else {
+                        getStyleClass().addAll("pesadas-ndr");
+                    }
                 }
                 setVisible(false);
                 setVisible(true);
@@ -142,16 +132,22 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
         thfEmpresa.setItems(viewModel.getEmpresas());
         thfProducto.setItems(viewModel.getProductos());
 
-        btnAdd.setOnAction((event) -> {
+        btnAdd.setOnAction((event) ->
+
+        {
             viewModel.add(new Tblpesadas());
             dtpFecha.setDateTimeValue(LocalDateTime.now());
             thfEmpresa.requestFocus();
             addAbstract();
         });
 
-        btnRemision.setOnAction((event) -> {
+        btnRemision.setOnAction((event) ->
+
+        {
             viewModel.showTblBasNotasDeRemisionView();
             itemsTable.refresh();
         });
+
+        buttonBar.setDisable(true);
     }
 }

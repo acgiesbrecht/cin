@@ -1,27 +1,21 @@
 package com.chortitzer.cin.ui.fieldextensions;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.LongStringConverter;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 import java.util.function.UnaryOperator;
 
-public class TextFieldLong extends TextField {
+public class TextFieldInteger extends TextField {
 
-    public TextFieldLong() {
+    public TextFieldInteger() {
         super();
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        decimalFormat.setParseBigDecimal(true);
-        LongStringConverter converter = new LongStringConverter() {
+        IntegerStringConverter converter = new IntegerStringConverter() {
             @Override
-            public Long fromString(String value) {
+            public Integer fromString(String value) {
                 try {
                     if (value == null) {
                         return null;
@@ -31,14 +25,14 @@ public class TextFieldLong extends TextField {
                     if (value.length() < 1) {
                         return null;
                     }
-                    return Long.valueOf(decimalFormat.parse(value.replace(",", "").replace(".", "")).longValue());
+                    return Integer.valueOf(decimalFormat.parse(value.replace(",", "").replace(".", "")).intValue());
                 } catch (Exception ex) {
                     return null;
                 }
             }
 
             @Override
-            public String toString(Long value) {
+            public String toString(Integer value) {
                 if (value == null) {
                     return "";
                 }
@@ -75,7 +69,7 @@ public class TextFieldLong extends TextField {
             // invalid change, veto it by returning null:
             return null;
         };
-        setMaxWidth(150);
+        setMaxWidth(100);
         setAlignment(Pos.CENTER_RIGHT);
         setTextFormatter(new TextFormatter<>(converter));
     }

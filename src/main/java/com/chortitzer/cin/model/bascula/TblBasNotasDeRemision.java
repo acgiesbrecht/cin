@@ -3,7 +3,6 @@ package com.chortitzer.cin.model.bascula;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -26,9 +25,9 @@ import javax.xml.bind.annotation.XmlTransient;
         , @NamedQuery(name = "TblBasNotasDeRemision.findByFechaEmision", query = "SELECT t FROM TblBasNotasDeRemision t WHERE t.fechaEmision = :fechaEmision")
         , @NamedQuery(name = "TblBasNotasDeRemision.findByRucTransportadora", query = "SELECT t FROM TblBasNotasDeRemision t WHERE t.rucTransportadora = :rucTransportadora")
         , @NamedQuery(name = "TblBasNotasDeRemision.findByRazonSocialTransportadora", query = "SELECT t FROM TblBasNotasDeRemision t WHERE t.razonSocialTransportadora = :razonSocialTransportadora")})
-public class TblBasNotasDeRemision implements Serializable {
+public class TblBasNotasDeRemision extends AbstractEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -56,16 +55,18 @@ public class TblBasNotasDeRemision implements Serializable {
     private String rucTransportadora;
     @Column(name = "razon_social_transportadora")
     private String razonSocialTransportadora;
-    @JoinColumn(name = "id_factura", referencedColumnName = "id")
-    @ManyToOne
-    private TblBasFacturas idFactura;
+
+    @JoinColumn(name = "id_factura_flete", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TblBasFacturasFlete idFacturaFlete;
+    @JoinColumn(name = "id_factura_mercaderia", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TblBasFacturasMercaderia idFacturaMercaderia;
+
 
     @XmlTransient
     @OneToOne(mappedBy = "idNotaDeRemision")
     private Tblpesadas tblpesadas;
-
-    @XmlTransient
-    private Boolean isSelected;
 
     public TblBasNotasDeRemision() {
     }
@@ -156,13 +157,19 @@ public class TblBasNotasDeRemision implements Serializable {
         this.razonSocialTransportadora = razonSocialTransportadora;
     }
 
-    public TblBasFacturas getIdFactura() {
-        return idFactura;
+    public TblBasFacturasFlete getIdFacturaFlete() {
+        return idFacturaFlete;
     }
 
-    public void setIdFactura(TblBasFacturas idFactura) {
-        this.idFactura = idFactura;
+    public void setIdFacturaFlete(TblBasFacturasFlete idFacturaFlete) {
+        this.idFacturaFlete = idFacturaFlete;
     }
+
+    public TblBasFacturasMercaderia getIdFacturaMercaderia() {
+        return idFacturaMercaderia;
+    }
+
+    public void setIdFacturaMercaderia(TblBasFacturasMercaderia idFacturaMercaderia) { this.idFacturaMercaderia = idFacturaMercaderia; }
 
     public Tblpesadas getTblpesadas() {
         return tblpesadas;
@@ -197,11 +204,6 @@ public class TblBasNotasDeRemision implements Serializable {
         return "com.chortitzer.industria.bascula.domain.TblBasNotasDeRemision[ id=" + id + " ]";
     }
 
-    public Boolean getSelected() {
-        return isSelected;
-    }
 
-    public void setSelected(Boolean selected) {
-        isSelected = selected;
-    }
+
 }

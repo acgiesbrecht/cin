@@ -42,6 +42,7 @@ public class AbstractView<T> {
     public Button btnDelete = new Button("Eliminar");
     public Button btnReset = new Button("Cancelar");
     public ProgressIndicator progressIndicator = new ProgressIndicator(-1.0);
+    public ButtonBar buttonBar = new ButtonBar();
 
     public DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -107,7 +108,6 @@ public class AbstractView<T> {
         splitPane.getItems().addAll(masterAnchorPane, editPane);
 
         AnchorPane buttonBarPane = new AnchorPane();
-        ButtonBar buttonBar = new ButtonBar();
         AnchorPane.setBottomAnchor(buttonBar, 10.0);
         AnchorPane.setTopAnchor(buttonBar, 10.0);
         AnchorPane.setLeftAnchor(buttonBar, 10.0);
@@ -128,15 +128,17 @@ public class AbstractView<T> {
         btnSave.setOnAction((event) -> {
             getViewModel().save();
             isNewProperty.set(false);
+            itemsTable.refresh();
         });
 
         btnDelete.setOnAction((event) -> {
             getViewModel().delete();
+            itemsTable.refresh();
         });
 
         btnReset.setOnAction((event) -> {
-            getViewModel().reset();
             isNewProperty.set(false);
+            getViewModel().reset();
         });
 
         loadingIndicator.visibleProperty().bind(viewModel.loadingInProgressProperty());
@@ -161,7 +163,9 @@ public class AbstractView<T> {
             } else if (sortedData.size() > rowsPerPage) {
                 numOfPages = sortedData.size() / rowsPerPage + 1;
             }
-            if(numOfPages == 0){numOfPages = 1;}
+            if (numOfPages == 0) {
+                numOfPages = 1;
+            }
             pagination.setPageFactory(this::createPage);
             pagination.setPageCount(numOfPages);
         }));

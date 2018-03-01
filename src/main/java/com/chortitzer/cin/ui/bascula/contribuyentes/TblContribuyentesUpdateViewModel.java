@@ -45,64 +45,76 @@ public class TblContribuyentesUpdateViewModel implements ViewModel {
         Task<Integer> task = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                //List<TblContribuyentes> listExisting = tblContribuyentesDao.findAllOrdered();
-                tblContribuyentesDao.removeAll();
+                try {
+                    Connection conn = null;
+                    Statement stmt = null;
+                    Class.forName("org.postgresql.Driver");
+                    //conn = DriverManager.getConnection("jdbc:postgresql://192.168.1.26:5432/industria_bas", "postgres", "123456789");
+                    conn = DriverManager.getConnection("jdbc:postgresql://192.168.3.122:5432/industria", "postgres", "123456");
+                    stmt = conn.createStatement();
+                    stmt.executeUpdate("TRUNCATE TABLE tbl_contribuyentes");
 
-                Connection conn = null;
-                Statement stmt = null;
-                Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection("jdbc:postgresql://192.168.1.26:5432/industria_bas", "postgres", "123456789");
-                stmt = conn.createStatement();
+                    String temp = "";
+                    Integer count = 0;
 
-                List<TblContribuyentes> listNew = new ArrayList<>();
-                String temp = "";
-                Integer count = 0;
-                //entityManager.createQuery("delete from TblContribuyentes t").executeUpdate();
-                for (Integer i = 0; i <= 9; i++) {
+                    for (Integer i = 0; i <= 9; i++) {
 
-                    updateMessage("Descargando listado de RUC con terminacion " + String.valueOf(i));
-                    URL url = new URL("http://www.set.gov.py/rest/contents/download/collaboration/sites/PARAGUAY-SET/documents/informes-periodicos/ruc/ruc" + String.valueOf(i) + ".zip");
-                    ZipInputStream zipStream = new ZipInputStream(url.openStream(), StandardCharsets.UTF_8);
-                    zipStream.getNextEntry();
+                        updateMessage("Descargando listado de RUC con terminacion " + String.valueOf(i));
+                        URL url = new URL("http://www.set.gov.py/rest/contents/download/collaboration/sites/PARAGUAY-SET/documents/informes-periodicos/ruc/ruc" + String.valueOf(i) + ".zip");
+                        ZipInputStream zipStream = new ZipInputStream(url.openStream(), StandardCharsets.UTF_8);
+                        zipStream.getNextEntry();
 
-                    Scanner sc = new Scanner(zipStream, "UTF-8");
+                        Scanner sc = new Scanner(zipStream, "UTF-8");
 
-                    PreparedStatement prepStmt = conn.prepareStatement("INSERT INTO tbl_contribuyentes VALUES (?, ?, ?)");
-                    //StringJoiner joiner = new StringJoiner("");
-                    int a = 0;
-                    while (sc.hasNextLine() && a <= 50000) {
-                        String[] ruc = sc.nextLine().split("\\|");
-                        temp = ruc[0] + " - " + ruc[1] + " - " + ruc[2];
-                        if (ruc[0].length() > 0 && ruc[1].length() > 0 && ruc[2].length() == 1) {
-                            prepStmt.setString(1, StringEscapeUtils.escapeSql(ruc[1]));
-                            prepStmt.setString(2, ruc[0]);
-                            prepStmt.setString(3, ruc[2]);
-                            prepStmt.addBatch();
-                            a++;
-                            //joiner.add("INSERT INTO MG.TBL_CONTRIBUYENTES VALUES ('" + ruc[0] + "','" + ruc[2] + "', '" + StringEscapeUtils.escapeSql(ruc[1]) + "');");
-                            if (a == 50000) {
-                                int[] numUpdates = prepStmt.executeBatch();
-                                a = 0;
+                        PreparedStatement prepStmt = conn.prepareStatement("INSERT INTO tbl_contribuyentes (razon_social, ruc_sin_dv, dv) VALUES (?, ?, ?)");
+                        //StringJoiner joiner = new StringJoiner("");
+                        int a = 0;
+                        while (sc.hasNextLine() && a <= 50000) {
+                            String[] ruc = sc.nextLine().split("\\|");
+                            temp = ruc[0] + " - " + ruc[1] + " - " + ruc[2];
+                            if (ruc[0].length() > 0 && ruc[1].length() > 0 && ruc[2].length() == 1) {
+                                prepStmt.setString(1, StringEscapeUtils.escapeSql(ruc[1]));
+                                prepStmt.setString(2, ruc[0]);
+                                prepStmt.setString(3, ruc[2]);
+                                prepStmt.addBatch();
+                                a++;
+                                //joiner.add("INSERT INTO MG.TBL_CONTRIBUYENTES VALUES ('" + ruc[0] + "','" + ruc[2] + "', '" + StringEscapeUtils.escapeSql(ruc[1]) + "');");
+                                try {
+                                    if (a == 50000) {
+                                        int[] numUpdates = prepStmt.executeBatch();
+                                        a = 0;
+                                        updateMessage("Guardando en base");
+                                    }
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                                //joiner.add("INSERT INTO tbl_contribuyentes VALUES ('" + StringEscapeUtils.escapeSql(ruc[1]) + "','" + ruc[0] + "','" + ruc[2] + "');");
+                                //}
+                                updateProgress(count, 1000000);
+                                updateMessage("Cantidad de contribuyentes procesada: " + String.format("%,d", count) + " de aprox.." + String.valueOf(1000000));
+                                count++;
+                            } else {
+                                updateMessage(temp);
                             }
-                            //joiner.add("INSERT INTO tbl_contribuyentes VALUES ('" + StringEscapeUtils.escapeSql(ruc[1]) + "','" + ruc[0] + "','" + ruc[2] + "');");
-                            //}
-                            updateProgress(count, 1000000);
-                            updateMessage("Cantidad de contribuyentes procesada: " + String.format("%,d", count) + " de aprox.." + String.valueOf(1000000));
-                            count++;
-                        } else {
-                            updateMessage(temp);
                         }
-                    }
 
-                    updateMessage("Guardando en base...");
-                    int[] numUpdates = prepStmt.executeBatch();
-                    //stmt.executeUpdate(joiner.toString());
-                    //tblContribuyentesDao.persist(listNew);
+                        updateMessage("Guardando en base...");
+                        try {
+                            int[] numUpdates = prepStmt.executeBatch();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        //stmt.executeUpdate(joiner.toString());
+                        //tblContribuyentesDao.persist(listNew);
+                    }
+                    updateMessage("Actualizacion existosa");
+                    updateProgress(10, 10);
+                    if (stmt != null) conn.close();
+                    return 1;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    return null;
                 }
-                updateMessage("Actualizacion existosa");
-                updateProgress(10,10);
-                if (stmt != null) conn.close();
-                return 1;
             }
         };
         progressProperty.bind(task.progressProperty());

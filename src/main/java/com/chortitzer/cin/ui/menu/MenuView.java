@@ -1,15 +1,11 @@
 package com.chortitzer.cin.ui.menu;
 
-import com.chortitzer.cin.model.bascula.TblBasAnalisisTipo;
-import com.chortitzer.cin.model.bascula.TblBasFacturas;
-import com.chortitzer.cin.model.bascula.TblBasNotasDeRemision;
-import com.chortitzer.cin.ui.AbstractView;
 import com.chortitzer.cin.ui.bascula.contribuyentes.TblContribuyentesUpdateView;
 import com.chortitzer.cin.ui.bascula.contribuyentes.TblContribuyentesUpdateViewModel;
-import com.chortitzer.cin.ui.bascula.facturas.TblBasFacturasView;
-import com.chortitzer.cin.ui.bascula.facturas.TblBasFacturasViewModel;
-import com.chortitzer.cin.ui.bascula.notasderemision.TblBasNotasDeRemisionView;
-import com.chortitzer.cin.ui.bascula.notasderemision.TblBasNotasDeRemisionViewModel;
+import com.chortitzer.cin.ui.bascula.facturas.flete.TblBasFacturasFleteView;
+import com.chortitzer.cin.ui.bascula.facturas.flete.TblBasFacturasFleteViewModel;
+import com.chortitzer.cin.ui.bascula.facturas.mercaderia.TblBasFacturasMercaderiaView;
+import com.chortitzer.cin.ui.bascula.facturas.mercaderia.TblBasFacturasMercaderiaViewModel;
 import com.chortitzer.cin.ui.bascula.pesadas.TblpesadasView;
 import com.chortitzer.cin.ui.bascula.productos.TblproductosView;
 import com.chortitzer.cin.ui.bascula.productos.TblproductosViewModel;
@@ -21,40 +17,27 @@ import com.chortitzer.cin.ui.bascula.tblbasprecios.TblBasPreciosView;
 import com.chortitzer.cin.ui.bascula.tblbasprecios.TblBasPreciosViewModel;
 import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaView;
 import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaViewModel;
+import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasView;
+import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasViewModel;
 import com.chortitzer.cin.ui.fba.tblproductoxconvertidores.TblProductoxConvertidoresView;
 import com.chortitzer.cin.ui.fba.tblproductoxconvertidores.TblProductoxConvertidoresViewModel;
-import com.chortitzer.cin.utils.EnumRoles;
-import com.chortitzer.cin.ui.bascula.contribuyentes.TblContribuyentesUpdateView;
-import com.chortitzer.cin.ui.bascula.pesadas.TblpesadasView;
-import com.chortitzer.cin.ui.bascula.productos.TblproductosView;
-import com.chortitzer.cin.ui.bascula.productos.TblproductosViewModel;
-import com.chortitzer.cin.ui.bascula.tblbascontratos.TblBasContratosView;
-import com.chortitzer.cin.ui.bascula.tblbascontratos.TblBasContratosViewModel;
-import com.chortitzer.cin.ui.bascula.tblbasprecios.TblBasPreciosView;
-import com.chortitzer.cin.ui.bascula.tblbasprecios.TblBasPreciosViewModel;
-import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaView;
-import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaViewModel;
 import com.chortitzer.cin.utils.EnumRoles;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import de.saxsys.mvvmfx.ViewTuple;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.inject.Inject;
+import java.util.Properties;
 
 public class MenuView implements FxmlView<MenuViewModel> {
 
@@ -65,10 +48,10 @@ public class MenuView implements FxmlView<MenuViewModel> {
     private Stage primaryStage;
 
     @FXML
-    MenuItem mnuPesadas, mnuFacturas, mnuContratos, mnuPrecios, mnuProductos, mnuEmpresas, mnuAnalisisTipo, mnuUpdateContribuyentes;
+    MenuItem mnuPesadas, mnuFacturasFlete, mnuFacturasMercaderia, mnuContratos, mnuPrecios, mnuProductos, mnuEmpresas, mnuAnalisisTipo, mnuUpdateContribuyentes;
 
     @FXML
-    MenuItem mnuConvertidores;
+    MenuItem mnuConvertidores, mnuFbaEtiquetas;
 
     @FXML
     Menu mnuBascula, mnuBalanceados, mnuEsencia;
@@ -89,7 +72,7 @@ public class MenuView implements FxmlView<MenuViewModel> {
             };
             loadTask.setOnSucceeded(evento -> {
                 try {
-                    setView(loadTask.getValue());
+                    setView(loadTask.getValue(),"Pesadas");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -97,40 +80,46 @@ public class MenuView implements FxmlView<MenuViewModel> {
             new Thread(loadTask).start();
         });
 
-        mnuFacturas.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
-        mnuFacturas.setOnAction((event) -> {
-            final ViewTuple<TblBasFacturasView, TblBasFacturasViewModel> tuple = FluentViewLoader.fxmlView(TblBasFacturasView.class).load();
-            setView(tuple.getView());
+        mnuFacturasFlete.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
+        mnuFacturasFlete.setOnAction((event) -> {
+            final ViewTuple<TblBasFacturasFleteView, TblBasFacturasFleteViewModel> tuple = FluentViewLoader.fxmlView(TblBasFacturasFleteView.class).load();
+            setView(tuple.getView(),"Facturas de Flete");
+        });
+
+        mnuFacturasMercaderia.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
+        mnuFacturasMercaderia.setOnAction((event) -> {
+            final ViewTuple<TblBasFacturasMercaderiaView, TblBasFacturasMercaderiaViewModel> tuple = FluentViewLoader.fxmlView(TblBasFacturasMercaderiaView.class).load();
+            setView(tuple.getView(),"Facturas de Mercaderia");
         });
 
         mnuContratos.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
         mnuContratos.setOnAction((event) -> {
             final ViewTuple<TblBasContratosView, TblBasContratosViewModel> tuple = FluentViewLoader.fxmlView(TblBasContratosView.class).load();
-            setView(tuple.getView());
+            setView(tuple.getView(),"Contratos");
         });
 
         mnuPrecios.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
         mnuPrecios.setOnAction((event) -> {
             final ViewTuple<TblBasPreciosView, TblBasPreciosViewModel> tuple = FluentViewLoader.fxmlView(TblBasPreciosView.class).load();
-            setView(tuple.getView());
+            setView(tuple.getView(),"Precios");
         });
 
         mnuEmpresas.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
         mnuEmpresas.setOnAction((event) -> {
             final ViewTuple<TblempresaView, TblempresaViewModel> tuple = FluentViewLoader.fxmlView(TblempresaView.class).load();
-            setView(tuple.getView());
+            setView(tuple.getView(),"Empresas");
         });
 
         mnuProductos.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
         mnuProductos.setOnAction((event) -> {
             final ViewTuple<TblproductosView, TblproductosViewModel> tuple = FluentViewLoader.fxmlView(TblproductosView.class).load();
-            setView(tuple.getView());
+            setView(tuple.getView(),"Prodcutos");
         });
 
         mnuAnalisisTipo.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
         mnuAnalisisTipo.setOnAction((event) -> {
             final ViewTuple<TblBasAnalisisTipoView, TblBasAnalisisTipoViewModel> tuple = FluentViewLoader.fxmlView(TblBasAnalisisTipoView.class).load();
-            setView(tuple.getView());
+            setView(tuple.getView(),"Tipo de Analisis");
         });
 
         mnuUpdateContribuyentes.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
@@ -145,18 +134,32 @@ public class MenuView implements FxmlView<MenuViewModel> {
         });
 
 
-        mnuConvertidores.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
+        mnuConvertidores.setDisable(!viewModel.hasRole(EnumRoles.BALANCEADOS));
         mnuConvertidores.setOnAction((event) -> {
             final ViewTuple<TblProductoxConvertidoresView, TblProductoxConvertidoresViewModel> tuple = FluentViewLoader.fxmlView(TblProductoxConvertidoresView.class).load();
-            setView(tuple.getView());
+            setView(tuple.getView(),"Convertidores");
+        });
+
+        mnuFbaEtiquetas.setDisable(!viewModel.hasRole(EnumRoles.BALANCEADOS));
+        mnuFbaEtiquetas.setOnAction((event) -> {
+            final ViewTuple<FbaEtiquetasView, FbaEtiquetasViewModel> tuple = FluentViewLoader.fxmlView(FbaEtiquetasView.class).load();
+            setView(tuple.getView(),"Etiquetas");
         });
 
         mnuEsencia.setDisable(!viewModel.hasRole(EnumRoles.ESENCIA));
     }
 
-    private void setView(Parent view) {
-        BorderPane bp = (BorderPane) primaryStage.getScene().getRoot();
-        bp.setCenter(view);
+    private void setView(Parent view, String displayTitle) {
+        try {
+            BorderPane bp = (BorderPane) primaryStage.getScene().getRoot();
+            Properties prop = new Properties();
+            prop.load(this.getClass().getResourceAsStream("/version.properties"));
+            String title = "CIN " + prop.getProperty("project.version") + "." + prop.getProperty("project.build");
+            primaryStage.setTitle(title + " " + displayTitle);
+            bp.setCenter(view);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
 }

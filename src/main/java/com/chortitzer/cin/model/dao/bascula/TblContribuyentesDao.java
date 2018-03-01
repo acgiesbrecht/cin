@@ -1,7 +1,6 @@
 package com.chortitzer.cin.model.dao.bascula;
 
 import com.chortitzer.cin.model.bascula.TblContribuyentes;
-import com.chortitzer.cin.model.bascula.TblContribuyentes;
 
 import java.util.List;
 
