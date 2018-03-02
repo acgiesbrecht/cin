@@ -45,6 +45,11 @@ public class TblBasFacturasMercaderiaView extends AbstractView<TblBasFacturasMer
         TableColumnInteger<TblBasFacturasMercaderia> col7 = new TableColumnInteger<>("Nro. OC", "nroOc", 150.0);
 
         itemsTable.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7);
+        itemsTable.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                viewModel.showTblBasNotasDeRemisionView();
+            }
+        });
 
         gridPane.add(new Label("Nro. Factura"), 1, 1);
         gridPane.add(new Label("Nro. Timbrado"), 1, 2);
@@ -88,10 +93,7 @@ public class TblBasFacturasMercaderiaView extends AbstractView<TblBasFacturasMer
                     return true;
                 } else if (facturas.getNro().toString().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (facturas.getNroOc().toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false; // Does not match.
+                } else return facturas.getNroOc().toString().toLowerCase().contains(lowerCaseFilter);
             });
         });
 

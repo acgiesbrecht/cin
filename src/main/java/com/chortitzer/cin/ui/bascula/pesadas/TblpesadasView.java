@@ -11,13 +11,11 @@ import com.chortitzer.cin.ui.fieldextensions.TextFieldInteger;
 import com.chortitzer.cin.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
-import jidefx.scene.control.field.FormattedTextField;
 import tornadofx.control.DateTimePicker;
 
 import java.time.LocalDateTime;
@@ -54,6 +52,12 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
         TableColumnInteger<Tblpesadas> col10 = new TableColumnInteger<>("Precio (PYG/Kg)", "precioGsPorKg", 70.0);
 
         itemsTable.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10);
+        itemsTable.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                viewModel.showTblBasNotasDeRemisionView();
+                itemsTable.refresh();
+            }
+        });
 
         gridPane.add(new Label("Fecha"), 1, 1);
         gridPane.add(new Label("Remsion"), 1, 2);
@@ -84,12 +88,12 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
                     return true;
                 } else if (pesada.getChapa().toString().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
+                } else if (pesada.getIdRemision().toString().replace("-", "").toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
                 } else if (pesada.getEmpresaid().getNombre().toString().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (pesada.getProductoid().getDescripcion().toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false; // Does not match.
+                } else
+                    return pesada.getProductoid().getDescripcion().toString().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
@@ -108,7 +112,7 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
             @Override
             public void updateItem(Tblpesadas item, boolean empty) {
                 super.updateItem(item, empty);
-                getStyleClass().removeAll("pesadas","pesadas-ndr", "pesadas-ndr-facm", "pesadas-ndr-facf", "pesadas-ndr-facm-facf");
+                getStyleClass().removeAll("pesadas", "pesadas-ndr", "pesadas-ndr-facm", "pesadas-ndr-facf", "pesadas-ndr-facm-facf");
                 if (item == null) {
                     setStyle("");
                 } else if (item.getIdNotaDeRemision() == null) {
@@ -132,18 +136,14 @@ public class TblpesadasView extends AbstractView<Tblpesadas> implements FxmlView
         thfEmpresa.setItems(viewModel.getEmpresas());
         thfProducto.setItems(viewModel.getProductos());
 
-        btnAdd.setOnAction((event) ->
-
-        {
+        btnAdd.setOnAction((event) -> {
             viewModel.add(new Tblpesadas());
             dtpFecha.setDateTimeValue(LocalDateTime.now());
             thfEmpresa.requestFocus();
             addAbstract();
         });
 
-        btnRemision.setOnAction((event) ->
-
-        {
+        btnRemision.setOnAction((event) -> {
             viewModel.showTblBasNotasDeRemisionView();
             itemsTable.refresh();
         });

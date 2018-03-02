@@ -72,7 +72,7 @@
     </persistence-unit>
     <persistence-unit name="PU_ADMIN" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.chortitzer.cin.model.admin.TblMaquinasCin</class>
+        <class>com.chortitzer.cin.model.admin.TblUsuariosCin</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.1.26:5432/industria_admin"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>

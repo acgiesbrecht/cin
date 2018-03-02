@@ -43,6 +43,11 @@ public class TblBasFacturasFleteView extends AbstractView<TblBasFacturasFlete> i
         TableColumnLong<TblBasFacturasFlete> col6 = new TableColumnLong<>("Cantidad Facturada", "cantidad", 150.0);
 
         itemsTable.getColumns().addAll(col1, col2, col3, col4, col5, col6);
+        itemsTable.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                viewModel.showTblBasNotasDeRemisionView();
+            }
+        });
 
         gridPane.add(new Label("Nro. Factura"), 1, 1);
         gridPane.add(new Label("Nro. Timbrado"), 1, 2);
@@ -82,10 +87,7 @@ public class TblBasFacturasFleteView extends AbstractView<TblBasFacturasFlete> i
                     return true;
                 } else if (facturas.getNroTimbrado().toString().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (facturas.getNro().toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false; // Does not match.
+                } else return facturas.getNro().toString().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
