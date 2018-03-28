@@ -1,5 +1,6 @@
 package com.chortitzer.cin.ui.fieldextensions;
 
+import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -72,6 +73,11 @@ public class DateTimePickerField extends DateTimePicker {
                     textField.positionCaret(caretPosition + 1);
                 }
             });
+        });
+
+        setOnAction(event -> {
+            if (getSkin() instanceof BehaviorSkinBase)
+                ((BehaviorSkinBase) getSkin()).getBehavior().traverseNext();
         });
     }
 

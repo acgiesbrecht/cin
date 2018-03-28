@@ -1,11 +1,11 @@
 package com.chortitzer.cin.model.bascula;
 
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -38,7 +38,7 @@ public class TblBasNotasDeRemision extends AbstractEntity implements Serializabl
     private String nro;
     @Basic(optional = false)
     @Column(name = "nro_timbrado")
-    private String nroTimbrado;
+    private Integer nroTimbrado;
     @Basic(optional = false)
     @Column(name = "ruc_emisor")
     private String rucEmisor;
@@ -75,7 +75,7 @@ public class TblBasNotasDeRemision extends AbstractEntity implements Serializabl
         this.id = id;
     }
 
-    public TblBasNotasDeRemision(Integer id, String nro, String nroTimbrado, String rucEmisor, String razonSocialEmisor, long pesoNeto, LocalDateTime fechaEmision) {
+    public TblBasNotasDeRemision(Integer id, String nro, Integer nroTimbrado, String rucEmisor, String razonSocialEmisor, long pesoNeto, LocalDateTime fechaEmision) {
         this.id = id;
         this.nro = nro;
         this.nroTimbrado = nroTimbrado;
@@ -101,11 +101,11 @@ public class TblBasNotasDeRemision extends AbstractEntity implements Serializabl
         this.nro = nro;
     }
 
-    public String getNroTimbrado() {
+    public Integer getNroTimbrado() {
         return nroTimbrado;
     }
 
-    public void setNroTimbrado(String nroTimbrado) {
+    public void setNroTimbrado(Integer nroTimbrado) {
         this.nroTimbrado = nroTimbrado;
     }
 
@@ -193,10 +193,7 @@ public class TblBasNotasDeRemision extends AbstractEntity implements Serializabl
             return false;
         }
         TblBasNotasDeRemision other = (TblBasNotasDeRemision) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override

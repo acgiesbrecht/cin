@@ -1,11 +1,20 @@
 package com.chortitzer.cin.utils;
 
+import com.chortitzer.cin.model.dao.bascula.TblBasTimbradosRucDao;
+import com.chortitzer.cin.model.dao.bascula.TblContribuyentesDao;
+
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.print.*;
 import java.util.function.Predicate;
 
 @Singleton
 public class Utils {
+
+    @Inject
+    TblContribuyentesDao tblContribuyentesDao;
+    @Inject
+    TblBasTimbradosRucDao tblBasTimbradosRucDao;
 
     public static void rawPrint(String zplCommand) {
         try {
@@ -57,6 +66,17 @@ public class Utils {
         }
     };
 
+    public String getContribuyenteRazonSocial(String ruc) {
+        if (rucPredicate.test(ruc)) {
+            try {
+                return tblContribuyentesDao.findByRuc(ruc).getRazonSocial();
+            } catch (Exception ex) {
+                return "";
+            }
+        }
+        return "";
+    }
+
     private static Integer Pa_Calcular_Dv_11_A(String p_numero, Integer p_basemax) {
         Integer v_total, v_resto, k, v_numero_aux, v_digit;
         String v_numero_al = "";
@@ -83,6 +103,17 @@ public class Utils {
         v_digit = v_resto > 1 ? 11 - v_resto : 0;
 
         return v_digit;
+    }
+
+    public String getRucFromTimbrado(Integer timbrado) {
+        if (timbrado > 10000000) {
+            try {
+                return tblBasTimbradosRucDao.findRucByTimbrado(timbrado);
+            } catch (Exception ex) {
+                return "";
+            }
+        }
+        return "";
     }
 
 }

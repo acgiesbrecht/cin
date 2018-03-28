@@ -2,17 +2,18 @@ package com.chortitzer.cin.ui.bascula.productos;
 
 import com.chortitzer.cin.model.bascula.Tblproductos;
 import com.chortitzer.cin.ui.AbstractView;
-import com.chortitzer.cin.ui.fieldextensions.TableColumnBase;
+import com.chortitzer.cin.ui.fieldextensions.TableColumnInteger;
+import com.chortitzer.cin.ui.fieldextensions.TableColumnString;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldBase;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 
 public class TblproductosView extends AbstractView<Tblproductos> implements FxmlView<TblproductosViewModel> {
 
-    private TextField txtDescripcion = new TextField();
-    private TextField txtMateriaPrima = new TextField();
+    private TextFieldBase txtDescripcion = new TextFieldBase();
+    private TextFieldBase txtMateriaPrima = new TextFieldBase();
 
     @InjectViewModel
     private TblproductosViewModel viewModel;
@@ -21,9 +22,9 @@ public class TblproductosView extends AbstractView<Tblproductos> implements Fxml
         setViewModel(viewModel);
         initializeAbstract();
 
-        TableColumnBase<Tblproductos, Integer> col1 = new TableColumnBase<>("Nº", "id", 60.0, true);
-        TableColumnBase<Tblproductos, String> col2 = new TableColumnBase<>("Descripcion", "descripcion", 350.0);
-        TableColumnBase<Tblproductos, Integer> col3 = new TableColumnBase<>("Es Materia Prima", "materiaprima", 140.0);
+        TableColumnInteger<Tblproductos> col1 = new TableColumnInteger<>("Nº", "id", 60.0);
+        TableColumnString<Tblproductos> col2 = new TableColumnString<>("Descripcion", "descripcion", 350.0);
+        TableColumnInteger<Tblproductos> col3 = new TableColumnInteger<>("Es Materia Prima", "materiaprima", 140.0);
 
         itemsTable.getColumns().addAll(col1, col2, col3);
 
@@ -39,10 +40,7 @@ public class TblproductosView extends AbstractView<Tblproductos> implements Fxml
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (producto.getDescripcion().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return producto.getDescripcion().toLowerCase().contains(lowerCaseFilter);
             });
         });
 

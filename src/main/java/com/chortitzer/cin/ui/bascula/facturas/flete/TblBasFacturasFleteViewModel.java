@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import javax.inject.Inject;
 import java.time.LocalDateTime;
 
@@ -43,7 +44,7 @@ public class TblBasFacturasFleteViewModel extends AbstractViewModel<TblBasFactur
         return itemWrapper.field("nro", TblBasFacturasFlete::getNro, TblBasFacturasFlete::setNro);
     }
 
-    public StringProperty nroTimbradoProperty() {
+    public IntegerProperty nroTimbradoProperty() {
         return itemWrapper.field("nroTimbrado", TblBasFacturasFlete::getNroTimbrado, TblBasFacturasFlete::setNroTimbrado);
     }
 

@@ -27,16 +27,6 @@ public class MenuViewModel implements ViewModel {
                 currentUsuario = null;
             }
         });
-        /*List<TblMaquinasCin> tblMaquinasCinList = tblMaquinasCinDao.findAll();
-        tblMaquinasCinList.stream().forEach(m -> {
-            try {
-                if (m.getNombreEquipo().toUpperCase().matches(InetAddress.getLocalHost().getHostName().toUpperCase())) {
-                    currentMaquina = m;
-                }
-            } catch (Exception ex) {
-                currentMaquina = null;
-            }
-        });*/
     }
 
 

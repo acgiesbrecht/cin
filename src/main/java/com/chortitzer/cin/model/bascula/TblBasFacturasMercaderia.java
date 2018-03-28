@@ -28,7 +28,7 @@ public class TblBasFacturasMercaderia implements Serializable {
     private String nro;
     @Basic(optional = false)
     @Column(name = "nro_timbrado")
-    private String nroTimbrado;
+    private Integer nroTimbrado;
     @Column(name = "fecha")
     private LocalDateTime fecha;
     @Column(name = "razon_social")
@@ -54,7 +54,7 @@ public class TblBasFacturasMercaderia implements Serializable {
         this.id = id;
     }
 
-    public TblBasFacturasMercaderia(Integer id, String nro, String nroTimbrado, String ruc, long cantidad) {
+    public TblBasFacturasMercaderia(Integer id, String nro, Integer nroTimbrado, String ruc, long cantidad) {
         this.id = id;
         this.nro = nro;
         this.nroTimbrado = nroTimbrado;
@@ -78,11 +78,11 @@ public class TblBasFacturasMercaderia implements Serializable {
         this.nro = nro;
     }
 
-    public String getNroTimbrado() {
+    public Integer getNroTimbrado() {
         return nroTimbrado;
     }
 
-    public void setNroTimbrado(String nroTimbrado) {
+    public void setNroTimbrado(Integer nroTimbrado) {
         this.nroTimbrado = nroTimbrado;
     }
 
@@ -150,10 +150,7 @@ public class TblBasFacturasMercaderia implements Serializable {
             return false;
         }
         TblBasFacturasMercaderia other = (TblBasFacturasMercaderia) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override

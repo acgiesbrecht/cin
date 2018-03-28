@@ -1,14 +1,13 @@
 package com.chortitzer.cin.ui.fieldextensions;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.text.DecimalFormat;
 import java.util.function.UnaryOperator;
 
-public class TextFieldInteger extends TextField {
+public class TextFieldInteger extends TextFieldBase {
 
     public TextFieldInteger() {
         super();

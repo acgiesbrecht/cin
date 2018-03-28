@@ -17,6 +17,8 @@ import com.chortitzer.cin.ui.bascula.tblbasprecios.TblBasPreciosView;
 import com.chortitzer.cin.ui.bascula.tblbasprecios.TblBasPreciosViewModel;
 import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaView;
 import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaViewModel;
+import com.chortitzer.cin.ui.bascula.vehiculos.TblBasVehiculosView;
+import com.chortitzer.cin.ui.bascula.vehiculos.TblBasVehiculosViewModel;
 import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasView;
 import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasViewModel;
 import com.chortitzer.cin.ui.fba.tblproductoxconvertidores.TblProductoxConvertidoresView;
@@ -48,7 +50,7 @@ public class MenuView implements FxmlView<MenuViewModel> {
     private Stage primaryStage;
 
     @FXML
-    MenuItem mnuPesadas, mnuFacturasFlete, mnuFacturasMercaderia, mnuContratos, mnuPrecios, mnuProductos, mnuEmpresas, mnuAnalisisTipo, mnuUpdateContribuyentes;
+    MenuItem mnuPesadas, mnuFacturasFlete, mnuFacturasMercaderia, mnuContratos, mnuPrecios, mnuProductos, mnuEmpresas, mnuAnalisisTipo, mnuVehiculos, mnuUpdateContribuyentes;
 
     @FXML
     MenuItem mnuConvertidores, mnuFbaEtiquetas;
@@ -61,7 +63,7 @@ public class MenuView implements FxmlView<MenuViewModel> {
         mnuPesadas.setOnAction((event) -> {
             Task<Parent> loadTask = new Task<Parent>() {
                 @Override
-                protected Parent call() throws Exception {
+                protected Parent call() {
                     try {
                         return FluentViewLoader.fxmlView(TblpesadasView.class).load().getView();
                     } catch (Exception ex) {
@@ -120,6 +122,12 @@ public class MenuView implements FxmlView<MenuViewModel> {
         mnuAnalisisTipo.setOnAction((event) -> {
             final ViewTuple<TblBasAnalisisTipoView, TblBasAnalisisTipoViewModel> tuple = FluentViewLoader.fxmlView(TblBasAnalisisTipoView.class).load();
             setView(tuple.getView(),"Tipo de Analisis");
+        });
+
+        mnuVehiculos.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
+        mnuVehiculos.setOnAction((event) -> {
+            final ViewTuple<TblBasVehiculosView, TblBasVehiculosViewModel> tuple = FluentViewLoader.fxmlView(TblBasVehiculosView.class).load();
+            setView(tuple.getView(), "Vehiculos de Transportadoras");
         });
 
         mnuUpdateContribuyentes.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));

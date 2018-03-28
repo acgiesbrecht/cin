@@ -1,8 +1,5 @@
 package com.chortitzer.cin.ui.bascula.contribuyentes;
 
-import com.chortitzer.cin.model.bascula.TblContribuyentes;
-import com.chortitzer.cin.model.dao.bascula.TblContribuyentesDao;
-import com.chortitzer.cin.model.bascula.TblContribuyentes;
 import com.chortitzer.cin.model.dao.bascula.TblContribuyentesDao;
 import de.saxsys.mvvmfx.ViewModel;
 import javafx.beans.property.*;
@@ -16,10 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.StringJoiner;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipInputStream;
@@ -44,7 +38,7 @@ public class TblContribuyentesUpdateViewModel implements ViewModel {
 
         Task<Integer> task = new Task<Integer>() {
             @Override
-            protected Integer call() throws Exception {
+            protected Integer call() {
                 try {
                     Connection conn = null;
                     Statement stmt = null;

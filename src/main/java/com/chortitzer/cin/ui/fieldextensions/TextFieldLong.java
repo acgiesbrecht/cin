@@ -1,19 +1,13 @@
 package com.chortitzer.cin.ui.fieldextensions;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 import java.util.function.UnaryOperator;
 
-public class TextFieldLong extends TextField {
+public class TextFieldLong extends TextFieldBase {
 
     public TextFieldLong() {
         super();

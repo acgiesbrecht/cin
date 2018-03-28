@@ -1,21 +1,12 @@
 package com.chortitzer.cin.ui.bascula.pesadas;
 
 import com.chortitzer.cin.model.bascula.TblBasNotasDeRemision;
-import com.chortitzer.cin.model.bascula.Tblpesadas;
 import com.chortitzer.cin.model.bascula.Tblempresa;
+import com.chortitzer.cin.model.bascula.Tblpesadas;
 import com.chortitzer.cin.model.bascula.Tblproductos;
 import com.chortitzer.cin.model.dao.bascula.TblBasNotasDeRemisionDao;
-import com.chortitzer.cin.model.dao.bascula.TblpesadasDao;
 import com.chortitzer.cin.model.dao.bascula.TblempresaDao;
-import com.chortitzer.cin.model.dao.bascula.TblproductosDao;
-import com.chortitzer.cin.ui.AbstractViewModel;
-import com.chortitzer.cin.ui.bascula.notasderemision.TblBasNotasDeRemisionView;
-import com.chortitzer.cin.ui.bascula.notasderemision.TblBasNotasDeRemisionViewModel;
-import com.chortitzer.cin.ui.bascula.tblbascontratos.TblBasContratosView;
-import com.chortitzer.cin.ui.bascula.tblbascontratos.TblBasContratosViewModel;
-import com.chortitzer.cin.model.bascula.TblBasNotasDeRemision;
-import com.chortitzer.cin.model.bascula.Tblpesadas;
-import com.chortitzer.cin.model.dao.bascula.TblBasNotasDeRemisionDao;
+import com.chortitzer.cin.model.dao.bascula.TblpesadasDao;
 import com.chortitzer.cin.model.dao.bascula.TblproductosDao;
 import com.chortitzer.cin.ui.AbstractViewModel;
 import com.chortitzer.cin.ui.bascula.notasderemision.TblBasNotasDeRemisionView;
@@ -108,6 +99,7 @@ public class TblpesadasViewModel extends AbstractViewModel<Tblpesadas> {
         } else {
             tuple.getViewModel().itemWrapper.set(new TblBasNotasDeRemision());
         }
+        tuple.getViewModel().chapaProperty.set(selectedItem.get().getChapa());
         Stage modal = new Stage();
         modal.setTitle("Nota de Remisión");
         modal.initOwner(primayStage);

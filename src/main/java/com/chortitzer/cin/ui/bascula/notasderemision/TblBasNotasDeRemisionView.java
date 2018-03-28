@@ -1,6 +1,7 @@
 package com.chortitzer.cin.ui.bascula.notasderemision;
 
 import com.chortitzer.cin.ui.fieldextensions.DateTimePickerField;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldBase;
 import com.chortitzer.cin.ui.fieldextensions.TextFieldFacturaNro;
 import com.chortitzer.cin.ui.fieldextensions.TextFieldTimbrado;
 import com.chortitzer.cin.utils.InformationDialog;
@@ -15,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
@@ -39,10 +39,10 @@ public class TblBasNotasDeRemisionView implements FxmlView<TblBasNotasDeRemision
     private DateTimePickerField dtpFecha = new DateTimePickerField();
     private TextFieldFacturaNro txtNro = new TextFieldFacturaNro();
     private TextFieldTimbrado txtNroTimbrado = new TextFieldTimbrado();
-    private TextField thfRazonSocialEmisor = new TextField();
-    private TextField txtRucEmisor = new TextField();
-    private TextField thfRazonSocialTransportadora = new TextField();
-    private TextField txtRucTransportadora = new TextField();
+    private TextFieldBase thfRazonSocialEmisor = new TextFieldBase();
+    private TextFieldBase txtRucEmisor = new TextFieldBase();
+    private TextFieldBase thfRazonSocialTransportadora = new TextFieldBase();
+    private TextFieldBase txtRucTransportadora = new TextFieldBase();
     private NumberField txtPesoNeto = new NumberField();
     private Button btnSave = new Button("Guardar");
     private Button btnDelete = new Button("Eliminar");
@@ -83,11 +83,11 @@ public class TblBasNotasDeRemisionView implements FxmlView<TblBasNotasDeRemision
         gridPane.add(dtpFecha, 1, 3);
         txtRucEmisor.setPrefWidth(120);
         txtRucEmisor.setPromptText("RUC");
-        txtRucEmisor.focusedProperty().addListener((ov, oldV, newV) -> {
+        /*txtRucEmisor.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!newV) {
-                thfRazonSocialEmisor.setText(viewModel.getContribuyenteRazonSocial(txtRucEmisor.getText()));
+                thfRazonSocialEmisor.setText(getContribuyenteRazonSocial(txtRucEmisor.getText()));
             }
-        });
+        });*/
         thfRazonSocialEmisor.setPrefWidth(350);
         thfRazonSocialEmisor.setPromptText("Razon Social");
         HBox hBoxEmisor = new HBox();
@@ -96,11 +96,11 @@ public class TblBasNotasDeRemisionView implements FxmlView<TblBasNotasDeRemision
         gridPane.add(hBoxEmisor, 1, 4);
         txtRucTransportadora.setPrefWidth(120);
         txtRucTransportadora.setPromptText("RUC");
-        txtRucTransportadora.focusedProperty().addListener((ov, oldV, newV) -> {
+        /*txtRucTransportadora.focusedProperty().addListener((ov, oldV, newV) -> {
             if (!newV) {
                 thfRazonSocialTransportadora.setText(viewModel.getContribuyenteRazonSocial(txtRucTransportadora.getText()));
             }
-        });
+        });*/
         gridPane.add(txtRucTransportadora, 1, 6);
         thfRazonSocialTransportadora.setPrefWidth(350);
         thfRazonSocialTransportadora.setPromptText("Razon Social");
@@ -152,7 +152,7 @@ public class TblBasNotasDeRemisionView implements FxmlView<TblBasNotasDeRemision
 
         dtpFecha.dateTimeValueProperty().bindBidirectional(viewModel.fechaEmisionProperty());
         txtNro.textProperty().bindBidirectional(viewModel.nroProperty());
-        txtNroTimbrado.textProperty().bindBidirectional(viewModel.nroTimbradoProperty());
+        txtNroTimbrado.textProperty().bindBidirectional(viewModel.nroTimbradoProperty(), new NumberStringConverter());
         thfRazonSocialEmisor.textProperty().bindBidirectional(viewModel.razonSocialEmisorProperty());
         txtRucEmisor.textProperty().bindBidirectional(viewModel.rucEmisorProperty());
         thfRazonSocialTransportadora.textProperty().bindBidirectional(viewModel.razonSocialTransportadoraProperty());

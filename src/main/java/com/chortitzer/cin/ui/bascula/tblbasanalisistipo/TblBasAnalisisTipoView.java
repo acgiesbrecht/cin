@@ -1,25 +1,21 @@
 package com.chortitzer.cin.ui.bascula.tblbasanalisistipo;
 
 import com.chortitzer.cin.model.bascula.TblBasAnalisisTipo;
-import com.chortitzer.cin.model.bascula.TblBasPrecios;
-import com.chortitzer.cin.model.bascula.Tblproductos;
 import com.chortitzer.cin.ui.AbstractView;
-import com.chortitzer.cin.ui.fieldextensions.*;
+import com.chortitzer.cin.ui.fieldextensions.TableColumnInteger;
+import com.chortitzer.cin.ui.fieldextensions.TableColumnString;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldBase;
+import com.chortitzer.cin.ui.fieldextensions.TextFieldLong;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
-
-import java.time.LocalDateTime;
 
 public class TblBasAnalisisTipoView extends AbstractView<TblBasAnalisisTipo> implements FxmlView<TblBasAnalisisTipoViewModel> {
 
 
-    private TextField txtDescripcion = new TextField();
-    private TextField txtUnidadeDeMedida = new TextField();
+    private TextFieldBase txtDescripcion = new TextFieldBase();
+    private TextFieldBase txtUnidadeDeMedida = new TextFieldBase();
     private TextFieldLong txtCantidadDecimales = new TextFieldLong();
 
     @InjectViewModel
@@ -51,10 +47,7 @@ public class TblBasAnalisisTipoView extends AbstractView<TblBasAnalisisTipo> imp
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (tipo.getDescripcion().toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false; // Does not match.
+                return tipo.getDescripcion().toString().toLowerCase().contains(lowerCaseFilter);
             });
         });
 

@@ -9,7 +9,6 @@ import de.saxsys.mvvmfx.utils.validation.visualization.ControlsFxVisualizer;
 import de.saxsys.mvvmfx.utils.validation.visualization.ValidationVisualizer;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.util.converter.NumberStringConverter;
 
@@ -20,8 +19,8 @@ public class TblBasFacturasMercaderiaView extends AbstractView<TblBasFacturasMer
     private DateTimePickerField dtpFecha = new DateTimePickerField();
     private TextFieldFacturaNro txtNro = new TextFieldFacturaNro();
     private TextFieldTimbrado txtNroTimbrado = new TextFieldTimbrado();
-    private TextField txtRazonSocial = new TextField();
-    private TextField txtRuc = new TextField();
+    private TextFieldBase txtRazonSocial = new TextFieldBase();
+    private TextFieldBase txtRuc = new TextFieldBase();
     private TextFieldLong txtCantidad = new TextFieldLong();
     private TextFieldInteger txtNroOc = new TextFieldInteger();
     private Button btnRemision = new Button("Nota de Remision");
@@ -100,7 +99,7 @@ public class TblBasFacturasMercaderiaView extends AbstractView<TblBasFacturasMer
         itemsTable.getSelectionModel().selectedItemProperty().addListener((observableValue, o, n) -> {
             dtpFecha.dateTimeValueProperty().bindBidirectional(viewModel.fechaProperty());
             txtNro.textProperty().bindBidirectional(viewModel.nroProperty());
-            txtNroTimbrado.textProperty().bindBidirectional(viewModel.nroTimbradoProperty());
+            txtNroTimbrado.textProperty().bindBidirectional(viewModel.nroTimbradoProperty(), new NumberStringConverter());
             txtRazonSocial.textProperty().bindBidirectional(viewModel.razonSocialProperty());
             txtRuc.textProperty().bindBidirectional(viewModel.rucProperty());
             txtCantidad.textProperty().bindBidirectional(viewModel.cantidadProperty(), new NumberStringConverter());
@@ -109,7 +108,7 @@ public class TblBasFacturasMercaderiaView extends AbstractView<TblBasFacturasMer
 
         dtpFecha.dateTimeValueProperty().bindBidirectional(viewModel.fechaProperty());
         txtNro.textProperty().bindBidirectional(viewModel.nroProperty());
-        txtNroTimbrado.textProperty().bindBidirectional(viewModel.nroTimbradoProperty());
+        txtNroTimbrado.textProperty().bindBidirectional(viewModel.nroTimbradoProperty(), new NumberStringConverter());
         txtRazonSocial.textProperty().bindBidirectional(viewModel.razonSocialProperty());
         txtRuc.textProperty().bindBidirectional(viewModel.rucProperty());
         txtCantidad.textProperty().bindBidirectional(viewModel.cantidadProperty(), new NumberStringConverter());

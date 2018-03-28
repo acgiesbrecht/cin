@@ -1,33 +1,28 @@
 package com.chortitzer.cin.ui.bascula.notasderemision;
 
 import com.chortitzer.cin.model.bascula.TblBasNotasDeRemision;
-import com.chortitzer.cin.model.bascula.Tblpesadas;
+import com.chortitzer.cin.model.bascula.TblBasTimbradosRuc;
 import com.chortitzer.cin.model.dao.bascula.TblBasNotasDeRemisionDao;
-import com.chortitzer.cin.model.dao.bascula.TblContribuyentesDao;
+import com.chortitzer.cin.model.dao.bascula.TblBasTimbradosRucDao;
+import com.chortitzer.cin.model.dao.bascula.TblBasVehiculosDao;
 import com.chortitzer.cin.ui.validators.RucValidator;
-import com.chortitzer.cin.model.bascula.TblBasNotasDeRemision;
-import com.chortitzer.cin.model.dao.bascula.TblBasNotasDeRemisionDao;
-import com.chortitzer.cin.ui.validators.RucValidator;
+import com.chortitzer.cin.utils.Utils;
 import de.saxsys.mvvmfx.ViewModel;
 import de.saxsys.mvvmfx.utils.mapping.ModelWrapper;
 import de.saxsys.mvvmfx.utils.validation.CompositeValidator;
 import de.saxsys.mvvmfx.utils.validation.ValidationStatus;
 import de.saxsys.mvvmfx.utils.validation.Validator;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.inject.Inject;
-import javax.ws.rs.DELETE;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class TblBasNotasDeRemisionViewModel implements ViewModel {
 
     public ModelWrapper<TblBasNotasDeRemision> itemWrapper = new ModelWrapper<>();
+    public StringProperty chapaProperty = new SimpleStringProperty();
 
     public enum CommitStatus {COMMIT, CANCEL, DELETE}
 
@@ -36,27 +31,60 @@ public class TblBasNotasDeRemisionViewModel implements ViewModel {
     @Inject
     TblBasNotasDeRemisionDao tblBasNotasDeRemisionDao;
     @Inject
-    TblContribuyentesDao tblContribuyentesDao;
+    TblBasVehiculosDao tblBasVehiculosDao;
+    @Inject
+    Utils utils;
+    @Inject
+    TblBasTimbradosRucDao tblBasTimbradosRucDao;
 
     private final Validator rucEmisorValidator = new RucValidator(rucEmisorProperty());
-    public ValidationStatus rucEmisorValidation(){return rucEmisorValidator.getValidationStatus();}
+
+    public ValidationStatus rucEmisorValidation() {
+        return rucEmisorValidator.getValidationStatus();
+    }
+
     private final Validator rucTransportadoraValidator = new RucValidator(rucTransportadoraProperty());
-    public ValidationStatus rucTransportadoraValidation(){return rucTransportadoraValidator.getValidationStatus();}
+
+    public ValidationStatus rucTransportadoraValidation() {
+        return rucTransportadoraValidator.getValidationStatus();
+    }
+
     private final CompositeValidator formValidator = new CompositeValidator();
-    public ValidationStatus formValidation(){return formValidator.getValidationStatus();}
+
+    public ValidationStatus formValidation() {
+        return formValidator.getValidationStatus();
+    }
 
     public void initialize() {
         formValidator.addValidators(
                 rucEmisorValidator,
                 rucTransportadoraValidator
         );
+        rucEmisorProperty().addListener((observableValue, o, n) -> {
+            razonSocialEmisorProperty().set(utils.getContribuyenteRazonSocial(n));
+        });
+        rucTransportadoraProperty().addListener((observableValue, o, n) -> {
+            razonSocialTransportadoraProperty().set(utils.getContribuyenteRazonSocial(n));
+        });
+        chapaProperty.addListener((observableValue, o, n) -> {
+            String ruc = tblBasVehiculosDao.findRucByChapa(chapaProperty.get());
+            if (!ruc.equals("")) {
+                rucTransportadoraProperty().set(ruc);
+            }
+        });
+        nroTimbradoProperty().addListener((observableValue, o, n) -> {
+            String ruc = utils.getRucFromTimbrado((Integer) n);
+            if (!ruc.equals("")) {
+                rucEmisorProperty().set(ruc);
+            }
+        });
     }
 
     public StringProperty nroProperty() {
         return itemWrapper.field("nro", TblBasNotasDeRemision::getNro, TblBasNotasDeRemision::setNro);
     }
 
-    public StringProperty nroTimbradoProperty() {
+    public IntegerProperty nroTimbradoProperty() {
         return itemWrapper.field("nroRemision", TblBasNotasDeRemision::getNroTimbrado, TblBasNotasDeRemision::setNroTimbrado);
     }
 
@@ -95,6 +123,10 @@ public class TblBasNotasDeRemisionViewModel implements ViewModel {
     public void commit() {
         itemWrapper.commit();
         commitStatus = CommitStatus.COMMIT;
+        if (utils.getRucFromTimbrado(itemWrapper.get().getNroTimbrado()).equals("")) {
+            TblBasTimbradosRuc tblBasTimbradosRuc = new TblBasTimbradosRuc(itemWrapper.get().getNroTimbrado(), itemWrapper.get().getRucEmisor());
+            tblBasTimbradosRucDao.persist(tblBasTimbradosRuc);
+        }
     }
 
     public void cancel() {
@@ -105,12 +137,5 @@ public class TblBasNotasDeRemisionViewModel implements ViewModel {
         commitStatus = CommitStatus.DELETE;
     }
 
-    public String getContribuyenteRazonSocial(String ruc) {
-        try {
-            return tblContribuyentesDao.findByRuc(ruc).getRazonSocial();
-        } catch (Exception ex) {
-            return "";
-        }
-    }
 
 }

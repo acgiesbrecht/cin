@@ -4,24 +4,19 @@ import com.chortitzer.cin.model.bascula.TblBasContratos;
 import com.chortitzer.cin.model.bascula.Tblempresa;
 import com.chortitzer.cin.model.bascula.Tblproductos;
 import com.chortitzer.cin.ui.AbstractView;
-import com.chortitzer.cin.ui.fieldextensions.TableColumnBase;
-import com.chortitzer.cin.ui.fieldextensions.TableColumnInteger;
-import com.chortitzer.cin.ui.fieldextensions.TableColumnLocalDateTime;
-import com.chortitzer.cin.ui.fieldextensions.TextFieldInteger;
+import com.chortitzer.cin.ui.fieldextensions.*;
 import com.chortitzer.cin.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
-import jidefx.scene.control.field.NumberField;
-import tornadofx.control.DateTimePicker;
 
 import java.time.LocalDateTime;
 
 public class TblBasContratosView extends AbstractView<TblBasContratos> implements FxmlView<TblBasContratosViewModel> {
 
-    private DateTimePicker dtpFecha = new DateTimePicker();
+    private DateTimePickerField dtpFecha = new DateTimePickerField();
     private TypeAheadField<Tblempresa> thfEmpresa = new TypeAheadField<>();
     private TypeAheadField<Tblproductos> thfProducto = new TypeAheadField<>();
     private TextFieldInteger txtPrecioPorKg = new TextFieldInteger();
@@ -64,10 +59,8 @@ public class TblBasContratosView extends AbstractView<TblBasContratos> implement
                     return true;
                 } else if (contrato.getIdEmpresa().toString().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (((Integer) contrato.getPrecioGsPorKg()).toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false; // Does not match.
+                } else
+                    return ((Integer) contrato.getPrecioGsPorKg()).toString().toLowerCase().contains(lowerCaseFilter);
             });
         });
 

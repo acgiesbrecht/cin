@@ -1,25 +1,19 @@
 package com.chortitzer.cin.ui.fieldextensions;
 
-import javafx.application.Platform;
+import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class DatePickerField extends DatePicker {
     public static final String DefaultFormat = "dd/MM/yyyy";
@@ -86,7 +80,10 @@ public class DatePickerField extends DatePicker {
                 }
             }
         });
-
+        setOnAction(event -> {
+            if (getSkin() instanceof BehaviorSkinBase)
+                ((BehaviorSkinBase) getSkin()).getBehavior().traverseNext();
+        });
     }
 
     private void simulateEnterPressed() {

@@ -40,7 +40,7 @@ public class TblBasFacturasMercaderiaViewModel extends AbstractViewModel<TblBasF
         return itemWrapper.field("nro", TblBasFacturasMercaderia::getNro, TblBasFacturasMercaderia::setNro);
     }
 
-    public StringProperty nroTimbradoProperty() {
+    public IntegerProperty nroTimbradoProperty() {
         return itemWrapper.field("nroTimbrado", TblBasFacturasMercaderia::getNroTimbrado, TblBasFacturasMercaderia::setNroTimbrado);
     }
 

@@ -2,11 +2,11 @@ package com.chortitzer.cin.ui.fieldextensions;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.TextField;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaskField extends TextField {
+public class MaskField extends TextFieldBase {
 
     /**
      * ??????? ? ????? ???????? ?????? ?????? ?????

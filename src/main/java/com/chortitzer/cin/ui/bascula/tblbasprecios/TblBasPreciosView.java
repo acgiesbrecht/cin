@@ -10,14 +10,13 @@ import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.util.converter.NumberStringConverter;
-import tornadofx.control.DateTimePicker;
 
 import java.time.LocalDateTime;
 
 public class TblBasPreciosView extends AbstractView<TblBasPrecios> implements FxmlView<TblBasPreciosViewModel> {
 
 
-    private DateTimePicker dtpFecha = new DateTimePicker();
+    private DateTimePickerField dtpFecha = new DateTimePickerField();
     private TypeAheadField<Tblproductos> thfProducto = new TypeAheadField<>();
     private TextFieldInteger txtPrecioPorKg = new TextFieldInteger();
 
@@ -51,10 +50,7 @@ public class TblBasPreciosView extends AbstractView<TblBasPrecios> implements Fx
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (precio.getIdProducto().toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false; // Does not match.
+                return precio.getIdProducto().toString().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
