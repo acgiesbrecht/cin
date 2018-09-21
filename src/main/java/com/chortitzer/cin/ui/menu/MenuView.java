@@ -23,6 +23,8 @@ import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasView;
 import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasViewModel;
 import com.chortitzer.cin.ui.fba.tblproductoxconvertidores.TblProductoxConvertidoresView;
 import com.chortitzer.cin.ui.fba.tblproductoxconvertidores.TblProductoxConvertidoresViewModel;
+import com.chortitzer.cin.ui.fps.etiquetas.FpsEtiquetasView;
+import com.chortitzer.cin.ui.fps.etiquetas.FpsEtiquetasViewModel;
 import com.chortitzer.cin.utils.EnumRoles;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.FxmlView;
@@ -56,7 +58,10 @@ public class MenuView implements FxmlView<MenuViewModel> {
     MenuItem mnuConvertidores, mnuFbaEtiquetas;
 
     @FXML
-    Menu mnuBascula, mnuBalanceados, mnuEsencia;
+    Menu mnuBascula, mnuBalanceados, mnuEtiquetasVarias;
+
+    @FXML
+    MenuItem mnuEsenciaEtiquetas;
 
     public void initialize() {
         mnuPesadas.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
@@ -154,7 +159,12 @@ public class MenuView implements FxmlView<MenuViewModel> {
             setView(tuple.getView(),"Etiquetas");
         });
 
-        mnuEsencia.setDisable(!viewModel.hasRole(EnumRoles.ESENCIA));
+        mnuEtiquetasVarias.setDisable(!viewModel.hasRole(EnumRoles.ETIQUETAS));
+
+        mnuEsenciaEtiquetas.setOnAction((event) -> {
+            final ViewTuple<FpsEtiquetasView, FpsEtiquetasViewModel> tuple = FluentViewLoader.fxmlView(FpsEtiquetasView.class).load();
+            setView(tuple.getView(), "Etiquetas Esencia");
+        });
     }
 
     private void setView(Parent view, String displayTitle) {

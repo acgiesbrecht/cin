@@ -2,41 +2,49 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane fx:id="masterAnchorPane" maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chortitzer.cin.ui.menu.MenuView">
-	<children>
-		<MenuBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-			<menus>
-				<Menu fx:id="mnuBascula" text="Bascula">
-					<items>
-						<MenuItem fx:id="mnuPesadas" text="Pesadas" />
-                        <SeparatorMenuItem />
-                        <MenuItem fx:id="mnuFacturasFlete" text="Facturas de Flete" />
-						<MenuItem fx:id="mnuFacturasMercaderia" text="Facturas de Mercaderia" />
-						<SeparatorMenuItem />
-						<MenuItem fx:id="mnuContratos" text="Contratos" />
-						<MenuItem fx:id="mnuPrecios" text="Precios" />
-                        <SeparatorMenuItem  />
-						<MenuItem fx:id="mnuEmpresas" text="Empresas" />
-						<MenuItem fx:id="mnuProductos" text="Productos" />
-						<SeparatorMenuItem  />
-						<MenuItem fx:id="mnuAnalisisTipo" text="Tipo de Analisis" />
-						<SeparatorMenuItem  />
-						<MenuItem fx:id="mnuVehiculos" text="Vehiculos de Transportadoras"/>
-						<MenuItem fx:id="mnuUpdateContribuyentes" text="Actualizar Lista de Contribuyentes"/>
-					</items>
-				</Menu>
-                <Menu fx:id="mnuBalanceados" text="Balanceados">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="masterAnchorPane" maxHeight="-Infinity" maxWidth="+Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.121"
+            fx:controller="com.chortitzer.cin.ui.menu.MenuView">
+    <children>
+        <MenuBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu fx:id="mnuBascula" text="Bascula">
                     <items>
-                        <MenuItem fx:id="mnuConvertidores" text="Convertidores" />
-                        <MenuItem fx:id="mnuFbaEtiquetas" text="Etiquetas" />
+                        <MenuItem fx:id="mnuPesadas" text="Pesadas"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="mnuFacturasFlete" text="Facturas de Flete"/>
+                        <MenuItem fx:id="mnuFacturasMercaderia" text="Facturas de Mercaderia"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="mnuContratos" text="Contratos"/>
+                        <MenuItem fx:id="mnuPrecios" text="Precios"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="mnuEmpresas" text="Empresas"/>
+                        <MenuItem fx:id="mnuProductos" text="Productos"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="mnuAnalisisTipo" text="Tipo de Analisis"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem fx:id="mnuVehiculos" text="Vehiculos de Transportadoras"/>
+                        <MenuItem fx:id="mnuUpdateContribuyentes" text="Actualizar Lista de Contribuyentes"/>
                     </items>
                 </Menu>
-				<Menu fx:id="mnuEsencia" text="Esencia">
-					<items>
-						<MenuItem fx:id="mnuEsenciaEtiquetas" text="Etiquetas" />
-					</items>
-				</Menu>
-			</menus>
-		</MenuBar>
-	</children>
+                <Menu fx:id="mnuBalanceados" text="Balanceados">
+                    <items>
+                        <MenuItem fx:id="mnuConvertidores" text="Convertidores"/>
+                        <MenuItem fx:id="mnuFbaEtiquetas" text="Etiquetas"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mnuEtiquetasVarias" text="Etiquetas Varias">
+                    <items>
+                        <MenuItem fx:id="mnuAceiteEtiquetas" text="Aceite"/>
+                        <MenuItem fx:id="mnuEsenciaEtiquetas" text="Esencia"/>
+                        <MenuItem fx:id="mnuAlgodonEtiquetas" text="Algodon"/>
+                        <MenuItem fx:id="mnuDetergenteEtiquetas" text="Detergente"/>
+                        <MenuItem fx:id="mnuSemillasEtiquetas" text="Semillas"/>
+                        <MenuItem fx:id="mnuSesamoEtiquetas" text="Sesamo"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
 </AnchorPane>

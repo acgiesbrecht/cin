@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.chortitzer.cin.utils.tiwulfx.TypeAheadField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import tornadofx.control.DateTimePicker?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="840.0"
+           xmlns="http://javafx.com/javafx/8.0.121"
+           fx:controller="com.chortitzer.cin.ui.fps.etiquetas.FpsEtiquetasView">
+    <VBox fx:id="mainBox">
+        <HBox spacing="10.0">
+            <GridPane hgap="5.0" prefWidth="830" style="-fx-background-color: #D5F5E3;" vgap="5.0">
+                <Label text="Lote Nº" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtLote" maxWidth="50.0" prefHeight="31.0" prefWidth="50.0" GridPane.columnIndex="2"
+                           GridPane.hgrow="NEVER" GridPane.rowIndex="1"/>
+                <Label text="Fecha Elaboracion" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <DateTimePicker fx:id="dtpFechaElaboracion" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <Label text="Cantidad de Tambores" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtCantidadTambores" maxWidth="50.0" prefWidth="50.0" GridPane.columnIndex="2"
+                           GridPane.hgrow="NEVER" GridPane.rowIndex="3"/>
+                <Label text="Nombre del Cliente" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <TypeAheadField fx:id="thfCliente" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                <Label text="Codigo del Cliente" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <TextField fx:id="txtCodigoCliente" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
+                <Label text="Orden de Compra Nº" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                <TextField fx:id="txtOrdenCompra" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+                <Label text="Envase" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                <TypeAheadField fx:id="thfEnvase" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+                <Label text="Peso Neto (Kg):" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                <TextField fx:id="txtPesoNeto" alignment="CENTER_RIGHT" maxWidth="70.0" prefWidth="70.0"
+                           GridPane.columnIndex="2" GridPane.rowIndex="8"/>
+                <Label text="Peso Tara (Kg):" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                <TextField fx:id="txtPesoTara" alignment="CENTER_RIGHT" maxWidth="70.0" prefWidth="70.0"
+                           GridPane.columnIndex="2" GridPane.rowIndex="9"/>
+                <columnConstraints>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                    <ColumnConstraints/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+            </GridPane>
+            <ImageView fx:id="imageView" fitWidth="200" preserveRatio="true"/>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </HBox>
+        <AnchorPane>
+            <ButtonBar AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+                       AnchorPane.topAnchor="10">
+                <buttons>
+                    <Button fx:id="btnImprimirGrande" defaultButton="true" onAction="#imprimirGrande"
+                            text="Imprimir Grande"/>
+                    <Button fx:id="btnImprimirPequeno" defaultButton="true" onAction="#imprimirPequeno"
+                            text="Imprimir Pequeño"/>
+                    <Button fx:id="btnPreview" onAction="#preview" text="Vista Previa Grande"/>
+                    <Button fx:id="btnReset" onAction="#reset" text="Cancelar"/>
+                </buttons>
+            </ButtonBar>
+        </AnchorPane>
+    </VBox>
+</StackPane>

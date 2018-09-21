@@ -5,14 +5,14 @@ public enum EnumRoles {
     ADMIN("ADMIN"),
     BALANCEADOS("BALANCEADOS"),
     BASCULA("BASCULA"),
-    ESENCIA("ESENCIA");
+    ETIQUETAS("ETIQUETAS");
 
     private final String text;
 
     /**
      * @param text
      */
-    private EnumRoles(final String text) {
+    EnumRoles(final String text) {
         this.text = text;
     }
 

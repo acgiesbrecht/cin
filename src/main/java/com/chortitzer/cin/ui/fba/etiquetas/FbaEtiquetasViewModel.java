@@ -1,33 +1,24 @@
 package com.chortitzer.cin.ui.fba.etiquetas;
 
 import com.chortitzer.cin.model.dao.fba.FormulasDao;
-import com.chortitzer.cin.model.dao.fba.ProductoxDao;
 import com.chortitzer.cin.model.dao.fba.TblEtiquetadoraContenidoDao;
 import com.chortitzer.cin.model.dao.fba.TblProductoxConvertidoresDao;
 import com.chortitzer.cin.model.fba.Formulas;
-import com.chortitzer.cin.model.fba.Productox;
 import com.chortitzer.cin.model.fba.TblEtiquetadoraContenido;
-import com.chortitzer.cin.model.fba.TblProductoxConvertidores;
 import com.chortitzer.cin.ui.AbstractViewModel;
 import com.chortitzer.cin.utils.Utils;
-import com.chortitzer.cin.model.dao.fba.FormulasDao;
-import com.chortitzer.cin.model.dao.fba.TblEtiquetadoraContenidoDao;
-import com.chortitzer.cin.model.dao.fba.TblProductoxConvertidoresDao;
-import com.chortitzer.cin.model.fba.Formulas;
-import com.chortitzer.cin.model.fba.TblEtiquetadoraContenido;
-import com.chortitzer.cin.ui.AbstractViewModel;
+import com.chortitzer.cin.utils.ZplToPng;
 import com.google.common.base.Joiner;
-import javafx.beans.property.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
-import javafx.util.converter.NumberStringConverter;
 
 import javax.inject.Inject;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

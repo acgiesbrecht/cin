@@ -1,12 +1,6 @@
 package com.chortitzer.cin.ui.fieldextensions;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 public class TableColumnBoolean<R> extends TableColumnBase<R, Boolean> {
 

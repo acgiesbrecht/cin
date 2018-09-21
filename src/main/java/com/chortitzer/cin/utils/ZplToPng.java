@@ -1,4 +1,4 @@
-package com.chortitzer.cin.ui.fba.etiquetas;
+package com.chortitzer.cin.utils;
 
 import javafx.scene.image.Image;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
