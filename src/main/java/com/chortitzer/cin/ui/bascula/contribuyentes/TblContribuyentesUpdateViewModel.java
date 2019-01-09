@@ -1,21 +1,20 @@
 package com.chortitzer.cin.ui.bascula.contribuyentes;
 
+import com.chortitzer.cin.model.bascula.TblContribuyentes;
 import com.chortitzer.cin.model.dao.bascula.TblContribuyentesDao;
 import de.saxsys.mvvmfx.ViewModel;
 import javafx.beans.property.*;
 import javafx.concurrent.Task;
-import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.inject.Inject;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class TblContribuyentesUpdateViewModel implements ViewModel {
@@ -40,29 +39,32 @@ public class TblContribuyentesUpdateViewModel implements ViewModel {
             @Override
             protected Integer call() {
                 try {
-                    Connection conn = null;
+                    /*Connection conn = null;
                     Statement stmt = null;
                     Class.forName("org.postgresql.Driver");
                     //conn = DriverManager.getConnection("jdbc:postgresql://192.168.1.26:5432/industria_bas", "postgres", "123456789");
                     conn = DriverManager.getConnection("jdbc:postgresql://192.168.3.122:5432/industria", "postgres", "123456");
                     stmt = conn.createStatement();
                     stmt.executeUpdate("TRUNCATE TABLE tbl_contribuyentes");
-
+*/
                     String temp = "";
                     Integer count = 0;
 
+                    List<TblContribuyentes> contribuyentesListActual = tblContribuyentesDao.findAll();
+
                     for (Integer i = 0; i <= 9; i++) {
 
-                        updateMessage("Descargando listado de RUC con terminacion " + String.valueOf(i));
-                        URL url = new URL("http://www.set.gov.py/rest/contents/download/collaboration/sites/PARAGUAY-SET/documents/informes-periodicos/ruc/ruc" + String.valueOf(i) + ".zip");
+                        updateMessage("Descargando listado de RUC con terminacion " + i);
+                        URL url = new URL("https://www.set.gov.py/rest/contents/download/collaboration/sites/PARAGUAY-SET/documents/informes-periodicos/ruc/ruc" + i + ".zip");
+
                         ZipInputStream zipStream = new ZipInputStream(url.openStream(), StandardCharsets.UTF_8);
-                        zipStream.getNextEntry();
+                        ZipEntry entry = zipStream.getNextEntry();
 
                         Scanner sc = new Scanner(zipStream, "UTF-8");
 
-                        PreparedStatement prepStmt = conn.prepareStatement("INSERT INTO tbl_contribuyentes (razon_social, ruc_sin_dv, dv) VALUES (?, ?, ?)");
+                        //PreparedStatement prepStmt = conn.prepareStatement("INSERT INTO tbl_contribuyentes (razon_social, ruc_sin_dv, dv) VALUES (?, ?, ?)");
                         //StringJoiner joiner = new StringJoiner("");
-                        int a = 0;
+  /*                      int a = 0;
                         while (sc.hasNextLine() && a <= 50000) {
                             String[] ruc = sc.nextLine().split("\\|");
                             temp = ruc[0] + " - " + ruc[1] + " - " + ruc[2];
@@ -90,20 +92,37 @@ public class TblContribuyentesUpdateViewModel implements ViewModel {
                             } else {
                                 updateMessage(temp);
                             }
+                        }*/
+                        while (sc.hasNextLine()) {
+                            String[] ruc = sc.nextLine().split("\\|");
+                            temp = ruc[0] + " - " + ruc[1] + " - " + ruc[2];
+                            updateMessage(temp);
+                            if (ruc[0].length() > 0 && ruc[1].length() > 0 && ruc[2].length() == 1) {
+                                Optional<TblContribuyentes> result = contribuyentesListActual
+                                        .stream().parallel()
+                                        .filter(e -> e.getRucSinDv().equals(ruc[0])).findAny();
+                                if (!result.isPresent()) {
+                                    TblContribuyentes tblContribuyentes = new TblContribuyentes();
+                                    tblContribuyentes.setRazonSocial(ruc[1]);
+                                    tblContribuyentes.setRucSinDv(ruc[0]);
+                                    tblContribuyentes.setDv(ruc[2]);
+                                    tblContribuyentesDao.persist(tblContribuyentes);
+                                }
+                            }
                         }
 
                         updateMessage("Guardando en base...");
-                        try {
+                        /*try {
                             int[] numUpdates = prepStmt.executeBatch();
                         } catch (Exception ex) {
                             ex.printStackTrace();
-                        }
+                        }*/
                         //stmt.executeUpdate(joiner.toString());
                         //tblContribuyentesDao.persist(listNew);
                     }
                     updateMessage("Actualizacion existosa");
                     updateProgress(10, 10);
-                    if (stmt != null) conn.close();
+                    //if (stmt != null) conn.close();
                     return 1;
                 } catch (Exception ex) {
                     ex.printStackTrace();

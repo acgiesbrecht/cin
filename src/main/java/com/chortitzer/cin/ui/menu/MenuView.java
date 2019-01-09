@@ -19,10 +19,10 @@ import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaView;
 import com.chortitzer.cin.ui.bascula.tblempresa.TblempresaViewModel;
 import com.chortitzer.cin.ui.bascula.vehiculos.TblBasVehiculosView;
 import com.chortitzer.cin.ui.bascula.vehiculos.TblBasVehiculosViewModel;
+import com.chortitzer.cin.ui.bascula.visor.VisorView;
+import com.chortitzer.cin.ui.bascula.visor.VisorViewModel;
 import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasView;
 import com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasViewModel;
-import com.chortitzer.cin.ui.fba.tblproductoxconvertidores.TblProductoxConvertidoresView;
-import com.chortitzer.cin.ui.fba.tblproductoxconvertidores.TblProductoxConvertidoresViewModel;
 import com.chortitzer.cin.ui.fps.etiquetas.FpsEtiquetasView;
 import com.chortitzer.cin.ui.fps.etiquetas.FpsEtiquetasViewModel;
 import com.chortitzer.cin.utils.EnumRoles;
@@ -52,10 +52,10 @@ public class MenuView implements FxmlView<MenuViewModel> {
     private Stage primaryStage;
 
     @FXML
-    MenuItem mnuPesadas, mnuFacturasFlete, mnuFacturasMercaderia, mnuContratos, mnuPrecios, mnuProductos, mnuEmpresas, mnuAnalisisTipo, mnuVehiculos, mnuUpdateContribuyentes;
+    MenuItem mnuBasculaVisor, mnuPesadas, mnuFacturasFlete, mnuFacturasMercaderia, mnuContratos, mnuPrecios, mnuProductos, mnuEmpresas, mnuAnalisisTipo, mnuVehiculos, mnuUpdateContribuyentes;
 
     @FXML
-    MenuItem mnuConvertidores, mnuFbaEtiquetas;
+    MenuItem mnuFbaEtiquetas;
 
     @FXML
     Menu mnuBascula, mnuBalanceados, mnuEtiquetasVarias;
@@ -86,6 +86,8 @@ public class MenuView implements FxmlView<MenuViewModel> {
             });
             new Thread(loadTask).start();
         });
+
+        mnuBascula.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
 
         mnuFacturasFlete.setDisable(!viewModel.hasRole(EnumRoles.BASCULA));
         mnuFacturasFlete.setOnAction((event) -> {
@@ -146,13 +148,6 @@ public class MenuView implements FxmlView<MenuViewModel> {
             modal.showAndWait();
         });
 
-
-        mnuConvertidores.setDisable(!viewModel.hasRole(EnumRoles.BALANCEADOS));
-        mnuConvertidores.setOnAction((event) -> {
-            final ViewTuple<TblProductoxConvertidoresView, TblProductoxConvertidoresViewModel> tuple = FluentViewLoader.fxmlView(TblProductoxConvertidoresView.class).load();
-            setView(tuple.getView(),"Convertidores");
-        });
-
         mnuFbaEtiquetas.setDisable(!viewModel.hasRole(EnumRoles.BALANCEADOS));
         mnuFbaEtiquetas.setOnAction((event) -> {
             final ViewTuple<FbaEtiquetasView, FbaEtiquetasViewModel> tuple = FluentViewLoader.fxmlView(FbaEtiquetasView.class).load();
@@ -160,6 +155,13 @@ public class MenuView implements FxmlView<MenuViewModel> {
         });
 
         mnuEtiquetasVarias.setDisable(!viewModel.hasRole(EnumRoles.ETIQUETAS));
+
+        mnuBasculaVisor.setVisible(viewModel.hasRole(EnumRoles.BASCULAVISOR));
+        mnuBasculaVisor.setOnAction((event) -> {
+            final ViewTuple<VisorView, VisorViewModel> tuple = FluentViewLoader.fxmlView(VisorView.class).load();
+            setView(tuple.getView(), "Visor Bsscula");
+        });
+
 
         mnuEsenciaEtiquetas.setOnAction((event) -> {
             final ViewTuple<FpsEtiquetasView, FpsEtiquetasViewModel> tuple = FluentViewLoader.fxmlView(FpsEtiquetasView.class).load();

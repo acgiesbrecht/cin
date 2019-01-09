@@ -5,7 +5,8 @@ public enum EnumRoles {
     ADMIN("ADMIN"),
     BALANCEADOS("BALANCEADOS"),
     BASCULA("BASCULA"),
-    ETIQUETAS("ETIQUETAS");
+    ETIQUETAS("ETIQUETAS"),
+    BASCULAVISOR("BASCULAVISOR");
 
     private final String text;
 

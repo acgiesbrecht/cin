@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="F6629712-7948-4F5F-B661-E66B9F54EF8D" Name="CIN" Language="1033" Version="1.0.0.1" Manufacturer="Cooperativa Chortitzer Ltda." UpgradeCode="6CC59AC8-C27B-4B23-A0F1-4F75D85E5BC4">
+        <Package Description="Sistema CIN - Complejo Industrial" Comments="Sistema CIN" InstallerVersion="200" Compressed="yes" />
+        <Media Id="1" Cabinet="simple.cab" EmbedCab="yes" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="ProgramFilesFolder">
+                <Directory Id="ComplejoIndustrial" Name="Complejo Industrial">
+                    <Directory Id="GETDOWN" Name="app">
+                        <Component Id="Permission.AppFolder" Guid="{7C5234ED-EE92-468A-A765-27E5747705EE}">
+                            <CreateFolder>
+                                <Permission GenericAll="yes" User="Everyone" />
+                            </CreateFolder>
+                        </Component>
+                        <Component Id="DIGEST.TXT" DiskId="1" Guid="E8CBEC71-E566-4106-BD59-A39F2C318754">
+                            <File Id="DIGEST.TXT" Name="digest.txt" Source="C:\Users\adriang\IdeaProjects\CIN\target\getdown\digest.txt" />
+                        </Component>
+                        <Component Id="DIGEST2.TXT" DiskId="1" Guid="562334BB-D8DC-4321-8B65-B381C7FE34A3">
+                            <File Id="DIGEST2.TXT" Name="digest2.txt" Source="C:\Users\adriang\IdeaProjects\CIN\target\getdown\digest2.txt" />
+                        </Component>
+                        <Component Id="GETDOWN.TXT" DiskId="1" Guid="08B7568B-3659-4BD2-82F3-8EBBD05B2131">
+                            <File Id="GETDOWN.TXT" Name="getdown.txt" Source="C:\Users\adriang\IdeaProjects\CIN\target\getdown\getdown.txt" />
+                        </Component>
+                        <Directory Id="LIB" Name="lib">
+                            <Component Id="CIN_1.0.0.JAR" DiskId="1" Guid="946AB089-9A6A-4CB4-B539-CB51BD6A134C">
+                                <File Id="CIN_1.0.0.JAR" Name="cin-1.0.0.jar" Source="C:\Users\adriang\IdeaProjects\CIN\target\getdown\lib\cin-1.0.0.jar" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Component Id="launcher.exe" DiskId="1" Guid="4f19e4e6-6bba-4a2e-8872-79f3b88328b1">
+                        <File Id="CIN_LAUNCHER.EXE" Name="cin-launcher.exe" Source="C:\Users\adriang\Google Drive\cin-launcher.exe">
+                            <Shortcut Id="desktopShortcut" Directory="DesktopFolder" Name="CIN 1.0" WorkingDirectory="INSTALLDIR" Advertise="yes" Icon="DesktopIcon.exe" IconIndex="0" />
+                            <Shortcut Id="ExeShortcut" Directory="ProgramMenuDir" Name="CIN 1.0" Advertise="yes" Icon="StartMenuIcon.exe" IconIndex="0" />
+                        </File>
+                    </Component>
+                    <Component Id="Permission.InstallFolder" Guid="{7C5234ED-EE92-468A-A765-27E5747705DB}">
+                        <CreateFolder>
+                            <Permission GenericAll="yes" User="Everyone" />
+                        </CreateFolder>
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="DesktopFolder" />
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ProgramMenuDir" Name="Complejo Industrial">
+                    <Component Id="StartMenuShortcuts" Guid="DD6D78C8-DEC7-4558-A67C-BB17242B196D">
+                        <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+                        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" />
+                        <Shortcut Id="UninstallProduct" Name="Uninstall" Description="Uninstalls the application" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+        <Feature Id="DefaultFeature" Title="Main Feature" Level="1">
+            <ComponentRef Id="DIGEST.TXT" />
+            <ComponentRef Id="DIGEST2.TXT" />
+            <ComponentRef Id="GETDOWN.TXT" />
+            <ComponentRef Id="CIN_1.0.0.JAR" />
+            <ComponentRef Id="launcher.exe" />
+            <ComponentRef Id="StartMenuShortcuts" />
+            <ComponentRef Id="Permission.InstallFolder" />
+            <ComponentRef Id="Permission.AppFolder" />
+        </Feature>
+        <UI />
+        <Icon Id="DesktopIcon.exe" SourceFile="C:\Users\adriang\Google Drive\cin-launcher.exe" />
+        <Icon Id="StartMenuIcon.exe" SourceFile="C:\Users\adriang\Google Drive\cin-launcher.exe" />
+    </Product>
+</Wix>

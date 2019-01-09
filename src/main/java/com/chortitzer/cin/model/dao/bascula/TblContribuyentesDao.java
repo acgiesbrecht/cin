@@ -15,7 +15,12 @@ public class TblContribuyentesDao extends AbstractDaoBasculaImp<TblContribuyente
     }
 
     public TblContribuyentes findByRuc(String ruc) {
-        return getEntityFromQuery("select e from TblContribuyentes e where e.rucSinDv = '" + ruc.split("-", 2)[0] + "'");
+        try {
+            return getEntityFromQuery("select e from TblContribuyentes e where e.rucSinDv = '" + ruc.split("-", 2)[0] + "'");
+        } catch (Exception ex) {
+            return null;
+        }
+
     }
 
 }

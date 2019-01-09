@@ -9,7 +9,7 @@
 <StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="840.0"
            xmlns="http://javafx.com/javafx/8.0.121"
            fx:controller="com.chortitzer.cin.ui.fps.etiquetas.FpsEtiquetasView">
-    <VBox fx:id="mainBox">
+    <VBox fx:id="mainBox" prefHeight="493.0" prefWidth="840.0">
         <HBox spacing="10.0">
             <GridPane hgap="5.0" prefWidth="830" style="-fx-background-color: #D5F5E3;" vgap="5.0">
                 <Label text="Lote Nº" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
@@ -61,17 +61,15 @@
             </padding>
         </HBox>
         <AnchorPane>
-            <ButtonBar AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
-                       AnchorPane.topAnchor="10">
-                <buttons>
-                    <Button fx:id="btnImprimirGrande" defaultButton="true" onAction="#imprimirGrande"
-                            text="Imprimir Grande"/>
-                    <Button fx:id="btnImprimirPequeno" defaultButton="true" onAction="#imprimirPequeno"
-                            text="Imprimir Pequeño"/>
-                    <Button fx:id="btnPreview" onAction="#preview" text="Vista Previa Grande"/>
-                    <Button fx:id="btnReset" onAction="#reset" text="Cancelar"/>
-                </buttons>
-            </ButtonBar>
+            <HBox AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+                  AnchorPane.topAnchor="10"
+                  spacing="10">
+                <Button fx:id="btnImprimirGrande" defaultButton="true" onAction="#imprimirGrande"
+                        text="Imprimir Grande"/>
+                <Button fx:id="btnImprimirPequeno" onAction="#imprimirPequeno" text="Imprimir Pequeño"/>
+                <Button fx:id="btnPreview" onAction="#preview" text="Vista Previa Grande"/>
+                <Button fx:id="btnReset" onAction="#reset" text="Cancelar"/>
+            </HBox>
         </AnchorPane>
     </VBox>
 </StackPane>

@@ -42,6 +42,12 @@ public class TblBasContratos implements Serializable {
     @JoinColumn(name = "id_producto", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tblproductos idProducto;
+    @Basic(optional = false)
+    @Column(name = "fecha_fin_vigencia")
+    private LocalDateTime fechaFinVigencia;
+    @Basic(optional = false)
+    @Column(name = "volumen_kg")
+    private Integer volumenKg;
 
     public TblBasContratos() {
     }
@@ -110,10 +116,7 @@ public class TblBasContratos implements Serializable {
             return false;
         }
         TblBasContratos other = (TblBasContratos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override
@@ -121,4 +124,19 @@ public class TblBasContratos implements Serializable {
         return "com.chortitzer.industria.bascula.domain.TblBasContratos[ id=" + id + " ]";
     }
 
+    public LocalDateTime getFechaFinVigencia() {
+        return fechaFinVigencia;
+    }
+
+    public void setFechaFinVigencia(LocalDateTime fechaFinVigencia) {
+        this.fechaFinVigencia = fechaFinVigencia;
+    }
+
+    public Integer getVolumenKg() {
+        return volumenKg;
+    }
+
+    public void setVolumenKg(Integer volumenKg) {
+        this.volumenKg = volumenKg;
+    }
 }

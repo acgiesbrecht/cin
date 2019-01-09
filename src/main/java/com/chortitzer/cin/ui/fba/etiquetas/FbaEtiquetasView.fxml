@@ -2,24 +2,13 @@
 
 <?import com.chortitzer.cin.utils.tiwulfx.TypeAheadField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import jidefx.scene.control.field.FormattedTextField?>
 <?import tornadofx.control.DateTimePicker?>
-
-<?import javafx.scene.image.ImageView?>
-<StackPane prefHeight="600.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.121"
-           xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="840.0"
+           xmlns="http://javafx.com/javafx/8.0.121"
            fx:controller="com.chortitzer.cin.ui.fba.etiquetas.FbaEtiquetasView">
     <VBox fx:id="mainBox">
         <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -42,11 +31,9 @@
                 <Label text="Peso (Kg)" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                 <TypeAheadField fx:id="thfPeso" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
                 <Label text="Lote" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                <FormattedTextField fx:id="txtLote" alignment="CENTER_RIGHT" GridPane.columnIndex="2"
-                                    GridPane.rowIndex="6"/>
+                <TextField fx:id="txtLote" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
                 <Label text="Cantidad de Etiquetas" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                <FormattedTextField fx:id="txtCantidad" alignment="CENTER_RIGHT" GridPane.columnIndex="2"
-                                    GridPane.rowIndex="7"/>
+                <TextField fx:id="txtCantidad" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
                 <columnConstraints>
                     <ColumnConstraints/>
                     <ColumnConstraints/>
@@ -69,13 +56,13 @@
             </GridPane>
             <GridPane hgap="5.0" prefWidth="830" style="-fx-background-color: #D6EAF8;" vgap="5.0">
                 <Label text="Indicaciones" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <TextArea fx:id="txtIndicaciones" wrapText="true" minWidth="350" prefHeight="80"
+                <TextArea fx:id="txtIndicaciones" minWidth="350" prefHeight="80" wrapText="true"
                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <Label text="Ingredientes" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <TextArea fx:id="txtIngredientes" wrapText="true" minWidth="350" prefHeight="100"
+                <TextArea fx:id="txtIngredientes" minWidth="350" prefHeight="100" wrapText="true"
                           GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                 <Label text="Niveles de Garantia" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                <TextArea fx:id="txtNiveles" wrapText="true" minWidth="350" prefHeight="80" GridPane.columnIndex="1"
+                <TextArea fx:id="txtNiveles" minWidth="350" prefHeight="80" wrapText="true" GridPane.columnIndex="1"
                           GridPane.rowIndex="6"/>
                 <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
                     <Label text="Nº Reg. SENACSA " GridPane.valignment="CENTER"/>
@@ -105,20 +92,20 @@
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                 </padding>
             </GridPane>
+            <ImageView fx:id="imageView" fitWidth="200" preserveRatio="true"/>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>
-            <ImageView fx:id="imageView" preserveRatio="true" fitWidth="200"/>
         </HBox>
         <AnchorPane>
-            <ButtonBar AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
-                       AnchorPane.topAnchor="10">
-                <buttons>
-                    <Button fx:id="btnPrint" defaultButton="true" onAction="#print" text="Imprimir"/>
-                    <Button fx:id="btnPreview" onAction="#preview" text="Vista Previa"/>
-                    <Button fx:id="btnReset" onAction="#reset" text="Cancelar"/>
-                </buttons>
-            </ButtonBar>
+            <HBox AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+                  AnchorPane.topAnchor="10"
+                  spacing="10">
+                <Button fx:id="btnPrint" defaultButton="true" onAction="#print" text="Imprimir"
+                        ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="btnPreview" onAction="#preview" text="Vista Previa" ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="btnReset" onAction="#reset" text="Cancelar" ButtonBar.buttonData="LEFT"/>
+            </HBox>
         </AnchorPane>
     </VBox>
     <VBox fx:id="loadingIndicator" alignment="CENTER">

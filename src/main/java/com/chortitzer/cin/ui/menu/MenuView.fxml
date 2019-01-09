@@ -11,6 +11,7 @@
             <menus>
                 <Menu fx:id="mnuBascula" text="Bascula">
                     <items>
+                        <MenuItem fx:id="mnuBasculaVisor" text="Bascula Visor"/>
                         <MenuItem fx:id="mnuPesadas" text="Pesadas"/>
                         <SeparatorMenuItem/>
                         <MenuItem fx:id="mnuFacturasFlete" text="Facturas de Flete"/>
@@ -30,7 +31,6 @@
                 </Menu>
                 <Menu fx:id="mnuBalanceados" text="Balanceados">
                     <items>
-                        <MenuItem fx:id="mnuConvertidores" text="Convertidores"/>
                         <MenuItem fx:id="mnuFbaEtiquetas" text="Etiquetas"/>
                     </items>
                 </Menu>
