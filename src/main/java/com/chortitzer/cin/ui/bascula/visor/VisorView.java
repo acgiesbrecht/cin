@@ -5,8 +5,9 @@ import com.chortitzer.cin.ui.AbstractView;
 import com.chortitzer.cin.ui.fieldextensions.TextFieldInteger;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ChoiceBox;
 
 public class VisorView extends AbstractView<TblBasPesadas> implements FxmlView<VisorViewModel> {
 
@@ -25,15 +26,25 @@ public class VisorView extends AbstractView<TblBasPesadas> implements FxmlView<V
     @FXML
     private TextFieldInteger txtVisor;
     @FXML
-    private ToggleButton tbAutomatic;
+    private ChoiceBox<String> chbLectura;
 
     @InjectViewModel
     private VisorViewModel viewModel;
 
     public void initialize() {
-        tbAutomatic.selectedProperty().bindBidirectional(viewModel.automaticProperty);
+        chbLectura.getItems().add("Automatico");
+        chbLectura.getItems().add("Manual");
+        chbLectura.valueProperty().addListener((ChangeListener) (o, oldVal, newVal) -> {
+            if (newVal.equals("Automatico")) {
+                txtVisor.setEditable(false);
+                viewModel.openPort();
+            } else {
+                viewModel.closePort();
+                txtVisor.setEditable(true);
+            }
+        });
+        chbLectura.setValue("Automatico");
         txtVisor.textProperty().bindBidirectional(viewModel.visorProperty);
     }
-
 
 }

@@ -79,5 +79,6 @@
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.5.1" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.5.1" level="project" />
     <orderEntry type="library" name="Maven: com.fazecast:jSerialComm:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.2.4" level="project" />
   </component>
 </module>

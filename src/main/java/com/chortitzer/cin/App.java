@@ -1,25 +1,17 @@
 package com.chortitzer.cin;
 
-import com.chortitzer.cin.model.dao.fba.PgBalanceados;
-import com.chortitzer.cin.ui.main.MainView;
-import com.chortitzer.cin.ui.main.MainViewModel;
 import com.chortitzer.cin.ui.main.MainView;
 import com.chortitzer.cin.ui.main.MainViewModel;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewTuple;
 import de.saxsys.mvvmfx.cdi.MvvmfxCdiApplication;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -47,6 +39,7 @@ public class App extends MvvmfxCdiApplication {
 
         final Scene scene = new Scene(view);
 
+        scene.getStylesheets().add("org/kordamp/bootstrapfx/bootstrapfx.css");
         scene.getStylesheets().add(this.getClass().getResource("/css/main.css").toExternalForm());
 
         stage.setOnCloseRequest(handle -> {

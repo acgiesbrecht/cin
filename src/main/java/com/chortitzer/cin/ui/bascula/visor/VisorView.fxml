@@ -15,26 +15,35 @@
                         <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
                               AnchorPane.topAnchor="10.0">
                             <children>
-                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #D5F5E3;">
                                     <children>
-                                        <ToggleButton fx:id="tbAutomatic" mnemonicParsing="false" selected="true"
-                                                      text="Automatico">
-                                            <toggleGroup>
-                                                <ToggleGroup fx:id="am"/>
-                                            </toggleGroup>
-                                        </ToggleButton>
-                                        <ToggleButton fx:id="tbManual" mnemonicParsing="false" text="Manual"
-                                                      toggleGroup="$am"/>
-                                        <TextFieldInteger fx:id="txtVisor" maxWidth="189.0" prefHeight="51.0"
-                                                          prefWidth="112.0" text="100000">
+                                        <Label text="Bascula: ">
                                             <font>
                                                 <Font size="24.0"/>
                                             </font>
-                                        </TextFieldInteger>
+                                        </Label>
+                                        <HBox alignment="CENTER_LEFT" spacing="5">
+                                            <TextFieldInteger fx:id="txtVisor" alignment="CENTER_RIGHT" maxWidth="189.0"
+                                                              prefHeight="51.0" prefWidth="132.0" text="100000">
+                                                <font>
+                                                    <Font size="24.0"/>
+                                                </font>
+                                            </TextFieldInteger>
+                                            <Label text="Kg">
+                                                <font>
+                                                    <Font size="20.0"/>
+                                                </font>
+                                            </Label>
+                                        </HBox>
+                                        <ChoiceBox fx:id="chbLectura">
+                                        </ChoiceBox>
                                     </children>
                                     <VBox.margin>
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </VBox.margin>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
                                 </HBox>
                                 <GridPane>
                                     <columnConstraints>
@@ -49,7 +58,7 @@
                                 </GridPane>
                                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                     <buttons>
-                                        <Button mnemonicParsing="false" text="Button"/>
+                                        <Button mnemonicParsing="false" styleClass="btn" text="Button"/>
                                     </buttons>
                                 </ButtonBar>
                                 <Label textFill="RED">

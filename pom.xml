@@ -235,7 +235,19 @@
             <artifactId>jSerialComm</artifactId>
             <version>2.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.kordamp.bootstrapfx</groupId>
+            <artifactId>bootstrapfx-core</artifactId>
+            <version>0.2.4</version>
+        </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>jcenter</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>getdown-maven-plugin-mvn-repo</id>
