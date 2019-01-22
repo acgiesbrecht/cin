@@ -1,15 +1,25 @@
 package com.chortitzer.cin.ui.bascula.visor;
 
+import com.chortitzer.cin.model.bascula.TblBasPersonas;
 import com.chortitzer.cin.model.bascula.TblBasPesadas;
+import com.chortitzer.cin.model.bascula.TblContribuyentes;
+import com.chortitzer.cin.model.bascula.Tblproductos;
 import com.chortitzer.cin.ui.AbstractView;
 import com.chortitzer.cin.ui.fieldextensions.TextFieldInteger;
+import com.chortitzer.cin.utils.tiwulfx.TypeAheadField;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import org.controlsfx.control.textfield.TextFields;
 
-public class VisorView extends AbstractView<TblBasPesadas> implements FxmlView<VisorViewModel> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class VisorView extends AbstractView<TblContribuyentes> implements FxmlView<VisorViewModel> {
 
     /*@FXML
     private TypeAheadField<TblContribuyentes> thfPropietario;
@@ -27,6 +37,10 @@ public class VisorView extends AbstractView<TblBasPesadas> implements FxmlView<V
     private TextFieldInteger txtVisor;
     @FXML
     private ChoiceBox<String> chbLectura;
+    @FXML
+    private ComboBox<TblBasPersonas> cboTest;
+    @FXML
+    private TypeAheadField<TblBasPersonas> thfProducto;
 
     @InjectViewModel
     private VisorViewModel viewModel;
@@ -45,6 +59,12 @@ public class VisorView extends AbstractView<TblBasPesadas> implements FxmlView<V
         });
         chbLectura.setValue("Automatico");
         txtVisor.textProperty().bindBidirectional(viewModel.visorProperty);
+
+        cboTest.setItems(viewModel.getPersonasList());
+        cboTest.setEditable(true);
+        TextFields.bindAutoCompletion(cboTest.getEditor(), cboTest.getItems()).minWidthProperty().bind(cboTest.widthProperty());
+
+        thfProducto.setItems(viewModel.getPersonasList());
     }
 
 }

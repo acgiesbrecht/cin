@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import com.chortitzer.cin.utils.tiwulfx.TypeAheadField?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainStackPane" prefHeight="600.0" prefWidth="840.0"
            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="com.chortitzer.cin.ui.bascula.visor.VisorView">
     <children>
@@ -44,6 +45,14 @@
                                     <padding>
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                     </padding>
+                                </HBox>
+                                <HBox>
+                                    <Label text="Proveedor/Cliente:"/>
+                                    <ComboBox id="cboTest" fx:id="cboTest"/>
+                                </HBox>
+                                <HBox>
+                                    <Label text="Producto:"/>
+                                    <TypeAheadField fx:id="thfProducto" id="thfProducto"/>
                                 </HBox>
                                 <GridPane>
                                     <columnConstraints>

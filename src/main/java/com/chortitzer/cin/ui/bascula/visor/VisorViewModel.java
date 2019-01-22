@@ -1,6 +1,7 @@
 package com.chortitzer.cin.ui.bascula.visor;
 
-import com.chortitzer.cin.model.bascula.TblBasPesadas;
+import com.chortitzer.cin.model.bascula.*;
+import com.chortitzer.cin.model.dao.bascula.TblBasPersonasDao;
 import com.chortitzer.cin.model.dao.bascula.TblBasPesadasDao;
 import com.chortitzer.cin.model.dao.bascula.TblContribuyentesDao;
 import com.chortitzer.cin.ui.AbstractViewModel;
@@ -11,25 +12,27 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import javax.inject.Inject;
 
-public class VisorViewModel extends AbstractViewModel<TblBasPesadas> {
+public class VisorViewModel extends AbstractViewModel<TblContribuyentes> {
 
     public BooleanProperty automaticProperty = new SimpleBooleanProperty();
     public StringProperty visorProperty = new SimpleStringProperty();
     @Inject
-    TblBasPesadasDao tblBasPesadasDao;
-    @Inject
-    TblContribuyentesDao tblContribuyentesDao;
+    TblBasPersonasDao tblBasPersonasDao;
     @Inject
     Utils UTILS;
+    private final ObservableList<TblBasPersonas> personasList = FXCollections.observableArrayList();
 
     private SerialPort comPort;
     private SerialPacketListener listener = new SerialPacketListener();
 
     public void initialize() {
-        setDao(tblBasPesadasDao);
+        //setDao(tblContribuyentesDao);
+        personasList.addAll(tblBasPersonasDao.findAll());
         comPort = SerialPort.getCommPorts()[3];
         comPort.setBaudRate(9600);
         comPort.setParity(0);
@@ -55,8 +58,12 @@ public class VisorViewModel extends AbstractViewModel<TblBasPesadas> {
         }
     }
 
-    public StringProperty chapaProperty() {
+    /*public StringProperty chapaProperty() {
         return itemWrapper.field("chapa", TblBasPesadas::getChapa, TblBasPesadas::setChapa);
+    }*/
+
+    public ObservableList<TblBasPersonas> getPersonasList() {
+        return personasList;
     }
 
 
