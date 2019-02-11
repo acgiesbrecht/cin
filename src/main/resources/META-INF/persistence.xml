@@ -13,7 +13,7 @@
         <class>com.chortitzer.cin.model.bascula.TblContribuyentes</class>
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.1.26:5432/industria_bas"/>-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.3.122:5432/industria"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.116.110:5432/industria"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.password" value="123456"/>
