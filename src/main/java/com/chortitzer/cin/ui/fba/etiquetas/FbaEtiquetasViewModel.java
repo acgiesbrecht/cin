@@ -128,6 +128,7 @@ public class FbaEtiquetasViewModel extends AbstractViewModel<Formulas> {
 
     @Override
     public void reset() {
+        nombreAnimalDestino = "PARA ";
         lineaProperty.set("1");
         turnoProperty.set("1");
         pesoProperty.set("25");

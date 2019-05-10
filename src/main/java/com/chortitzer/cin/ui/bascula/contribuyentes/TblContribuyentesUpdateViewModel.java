@@ -43,7 +43,7 @@ public class TblContribuyentesUpdateViewModel implements ViewModel {
                     Statement stmt = null;
                     Class.forName("org.postgresql.Driver");
                     //conn = DriverManager.getConnection("jdbc:postgresql://192.168.1.26:5432/industria_bas", "postgres", "123456789");
-                    conn = DriverManager.getConnection("jdbc:postgresql://192.168.3.122:5432/industria", "postgres", "123456");
+                    conn = DriverManager.getConnection("jdbc:postgresql://192.168.116.110:5432/industria", "postgres", "123456");
                     stmt = conn.createStatement();
                     stmt.executeUpdate("TRUNCATE TABLE tbl_contribuyentes");
 */
