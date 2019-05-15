@@ -128,7 +128,6 @@ public class FbaEtiquetasViewModel extends AbstractViewModel<Formulas> {
 
     @Override
     public void reset() {
-        nombreAnimalDestino = "PARA ";
         lineaProperty.set("1");
         turnoProperty.set("1");
         pesoProperty.set("25");
@@ -273,7 +272,7 @@ public class FbaEtiquetasViewModel extends AbstractViewModel<Formulas> {
             senacsaReg = "";
         }
 
-
+        nombreAnimalDestino = "PARA ";
         switch (contenido.getAnimalDestino().toUpperCase()) {
             case "BOVINO":
                 nombreAnimalDestino += "BOVINOS";
